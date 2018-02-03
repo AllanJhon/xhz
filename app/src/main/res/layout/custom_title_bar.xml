@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_title"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:background="@color/colorTitleBar"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/button_backward"
+        android:layout_width="14dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/back" />
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="100dip"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="标题栏"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="monospace" />
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/edit_text_shape"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="false"
+        android:gravity="left|center_vertical"
+        android:layout_margin="10dp"
+        android:textColor="@color/black"
+        android:radius="100dp"
+        android:textSize="16sp" />
+
+</LinearLayout>
