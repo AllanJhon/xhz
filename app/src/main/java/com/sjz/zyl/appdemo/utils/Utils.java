@@ -30,30 +30,14 @@ public class Utils {
         List<XhzCategories> xhzCategoriesArrayList=new ArrayList<XhzCategories>();
         XhzCategories XhzCategories=new XhzCategories(0,"类别");
         List<ArticleType> articleTypeList=kjdb.findAll(ArticleType.class,"ArticleTypeID");
-//        List<GongZhong> gongZhongList=new ArrayList<GongZhong>();
         for (int i=0;i<articleTypeList.size();i++){
             ArticleType articleType=articleTypeList.get(i);
-//            GongZhong gongZhong=new GongZhong(Integer.parseInt(articleType.getArticleTypeID()),articleType.getArticleType());
             List<Categories> categoriesList=kjdb.findAllByWhere(Categories.class,"ArticleTypeID = "+articleType.getArticleTypeID());
-//            List<BaseData> baseDataList=new ArrayList<BaseData>();
-//            for (int j=0;j<categoriesList.size();j++){
-//                Categories categories=categoriesList.get(j);
-//                BaseData baseData=new BaseData(Integer.parseInt(categories.getArticleCategoryID()),categories.getArticleCategory());
-//                baseDataList.add(baseData);
-//            }
             articleType.setCategoriesList(categoriesList);
-//            gongZhong.setJobtype(baseDataList);
-//            gongZhongList.add(gongZhong);
         }
         XhzCategories.setArticleType(articleTypeList);
         xhzCategoriesArrayList.add(XhzCategories);
         KJLoger.state("db", "getJobType: "+ xhzCategoriesArrayList.size());
-//        String result = readFileFromRaw(context, R.raw.zhaopin);
-//        if (result != null) {
-//            Gson gson = new Gson();
-//            return gson.fromJson(result, new TypeToken<List<ZhaoPin>>() {
-//            }.getType());
-//        }
         return xhzCategoriesArrayList;
     }
 

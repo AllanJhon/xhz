@@ -32,6 +32,7 @@ public class AppStartActivity extends KJActivity {
 
     public static String TAG = "appstart";
     public static String getCategories_path="api/v1/categories";
+    public static String getAllDatas_path="api/v1/syncAll";
     private KJDB kjdb;
     private List<Categories> list;
     private List<ArticleType> articleTypelist;
@@ -82,79 +83,87 @@ public class AppStartActivity extends KJActivity {
     @Override
     public void initData(){
         kjdb= KJDB.create();
-        if(kjdb.findAllByWhere(ArticleType.class,"ArticleTypeID = 1").size()== 0) {
-            articleTypelist = new ArrayList<ArticleType>();
-            ArticleType type1 = new ArticleType();
-            type1.setArticleTypeID(1);
-            type1.setArticleType("小河庄概况");
-            articleTypelist.add(type1);
-            kjdb.save(type1);
-            ArticleType type2 = new ArticleType();
-            type2.setArticleTypeID(2);
-            type2.setArticleType("村民服务中心");
-            articleTypelist.add(type2);
-            kjdb.save(type2);
-            ArticleType type3 = new ArticleType();
-            type3.setArticleTypeID(3);
-            type3.setArticleType("党政建设");
-            articleTypelist.add(type3);
-            kjdb.save(type3);
-            ArticleType type4 = new ArticleType();
-            type4.setArticleTypeID(4);
-            type4.setArticleType("政策法规");
-            articleTypelist.add(type4);
-            kjdb.save(type4);
-            ArticleType type5 = new ArticleType();
-            type5.setArticleTypeID(5);
-            type5.setArticleType("工业");
-            articleTypelist.add(type5);
-            kjdb.save(type5);
-            ArticleType type6 = new ArticleType();
-            type6.setArticleTypeID(6);
-            type6.setArticleType("农业");
-            articleTypelist.add(type6);
-            kjdb.save(type6);
-            ArticleType type7 = new ArticleType();
-            type7.setArticleTypeID(7);
-            type7.setArticleType("畜牧业");
-            articleTypelist.add(type7);
-            kjdb.save(type7);
-            ArticleType type8 = new ArticleType();
-            type8.setArticleTypeID(8);
-            type8.setArticleType("教育");
-            articleTypelist.add(type8);
-            kjdb.save(type8);
-            ArticleType type9 = new ArticleType();
-            type9.setArticleTypeID(9);
-            type9.setArticleType("精品旅游");
-            articleTypelist.add(type9);
-            kjdb.save(type9);
-            ArticleType type10 = new ArticleType();
-            type10.setArticleTypeID(10);
-            type10.setArticleType("金融");
-            articleTypelist.add(type10);
-            kjdb.save(type10);
-            ArticleType type11 = new ArticleType();
-            type11.setArticleTypeID(11);
-            type11.setArticleType("特色经济");
-            articleTypelist.add(type11);
-            kjdb.save(type11);
-            ArticleType type12 = new ArticleType();
-            type12.setArticleTypeID(12);
-            type12.setArticleType("基础设施");
-            articleTypelist.add(type12);
-            kjdb.save(type12);
-        }
+//        if(kjdb.findAllByWhere(ArticleType.class,"ArticleTypeID = 1").size()== 0) {
+//            articleTypelist = new ArrayList<ArticleType>();
+//            ArticleType type1 = new ArticleType();
+//            type1.setArticleTypeID(1);
+//            type1.setArticleType("小河庄概况");
+//            articleTypelist.add(type1);
+//            kjdb.save(type1);
+//            ArticleType type2 = new ArticleType();
+//            type2.setArticleTypeID(2);
+//            type2.setArticleType("村民服务中心");
+//            articleTypelist.add(type2);
+//            kjdb.save(type2);
+//            ArticleType type3 = new ArticleType();
+//            type3.setArticleTypeID(3);
+//            type3.setArticleType("党政建设");
+//            articleTypelist.add(type3);
+//            kjdb.save(type3);
+//            ArticleType type4 = new ArticleType();
+//            type4.setArticleTypeID(4);
+//            type4.setArticleType("政策法规");
+//            articleTypelist.add(type4);
+//            kjdb.save(type4);
+//            ArticleType type5 = new ArticleType();
+//            type5.setArticleTypeID(5);
+//            type5.setArticleType("工业");
+//            articleTypelist.add(type5);
+//            kjdb.save(type5);
+//            ArticleType type6 = new ArticleType();
+//            type6.setArticleTypeID(6);
+//            type6.setArticleType("农业");
+//            articleTypelist.add(type6);
+//            kjdb.save(type6);
+//            ArticleType type7 = new ArticleType();
+//            type7.setArticleTypeID(7);
+//            type7.setArticleType("畜牧业");
+//            articleTypelist.add(type7);
+//            kjdb.save(type7);
+//            ArticleType type8 = new ArticleType();
+//            type8.setArticleTypeID(8);
+//            type8.setArticleType("教育");
+//            articleTypelist.add(type8);
+//            kjdb.save(type8);
+//            ArticleType type9 = new ArticleType();
+//            type9.setArticleTypeID(9);
+//            type9.setArticleType("精品旅游");
+//            articleTypelist.add(type9);
+//            kjdb.save(type9);
+//            ArticleType type10 = new ArticleType();
+//            type10.setArticleTypeID(10);
+//            type10.setArticleType("金融");
+//            articleTypelist.add(type10);
+//            kjdb.save(type10);
+//            ArticleType type11 = new ArticleType();
+//            type11.setArticleTypeID(11);
+//            type11.setArticleType("特色经济");
+//            articleTypelist.add(type11);
+//            kjdb.save(type11);
+//            ArticleType type12 = new ArticleType();
+//            type12.setArticleTypeID(12);
+//            type12.setArticleType("基础设施");
+//            articleTypelist.add(type12);
+//            kjdb.save(type12);
+//        }
         KJHttp kjh = new KJHttp();
 
-        kjh.get(AppConfig.root_path+getCategories_path, null,
+        kjh.get(AppConfig.root_path+getAllDatas_path, null,
                 new HttpCallBack() {
                     @Override
                     public void onSuccess(String t) {
                         super.onSuccess(t);
                         try {
                             JSONObject json=new JSONObject(t);
-                           list= Parser.getCategories(json.optString("data"));
+                            if(json.optInt("code")==200){
+                                JSONObject data=json.getJSONObject("data");
+                                Parser.getArriticleTypes(data.getString("ArticleTypes"));
+                                Parser.getCategories(data.getString("ArticleCategories"));
+                                Parser.getArticles(data.getString("Articles"));
+                                Parser.getNews(data.getString("News"));
+                                Parser.getDocuments(data.getString("Documents"));
+                            }
+//                           list= Parser.getCategories(json.optString("data"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

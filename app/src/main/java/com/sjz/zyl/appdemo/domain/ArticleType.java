@@ -32,7 +32,7 @@ public class ArticleType {
     @Id()
     private int ArticleTypeID; //
     private String ArticleType; //
-    private String CategoryIconURL; //
+    private String Sequence; //
     private String TypeIconURL; //
     @OneToMany(manyColumn = "ArticleTypeID")
     private List<Categories> categoriesList;
@@ -53,12 +53,12 @@ public class ArticleType {
         ArticleType = articleType;
     }
 
-    public String getCategoryIconURL() {
-        return CategoryIconURL;
+    public String getSequence() {
+        return Sequence;
     }
 
-    public void setCategoryIconURL(String categoryIconURL) {
-        CategoryIconURL = categoryIconURL;
+    public void setSequence(String sequence) {
+        Sequence = sequence;
     }
 
     public String getTypeIconURL() {

@@ -18,7 +18,11 @@ package com.sjz.zyl.appdemo.utils;
 
 import android.util.Log;
 
+import com.sjz.zyl.appdemo.domain.Article;
+import com.sjz.zyl.appdemo.domain.ArticleType;
 import com.sjz.zyl.appdemo.domain.Categories;
+import com.sjz.zyl.appdemo.domain.Documents;
+import com.sjz.zyl.appdemo.domain.News;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,6 +70,142 @@ public class Parser {
             }
         } catch (JSONException e) {
             Log.e("xhz", "getCategories()解析异常");
+        }
+
+        return datas;
+    }
+
+    /**
+     * 类别类型列表
+     *
+     * @param json
+     * @return
+     */
+    public static List<ArticleType> getArriticleTypes(String json) {
+        List<ArticleType> datas = new ArrayList<ArticleType>();
+        KJDB jkdb= KJDB.create();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                ArticleType data = new ArticleType();
+                JSONObject obj = jsonArray.getJSONObject(i);
+                data.setSequence(obj.optString("Sequence","测试"));
+                data.setArticleTypeID(obj.optInt("ArticleTypeID",1));
+                data.setArticleType(obj.optString("ArticleType","测试"));
+                data.setTypeIconURL(obj.optString("TypeIconURL","测试"));
+
+                if(jkdb.findAllByWhere(ArticleType.class,"ArticleTypeID = "+obj.optString("ArticleTypeID")).size()!=0)
+                    jkdb.update(data);
+                else
+                    jkdb.save(data);
+                datas.add(data);
+            }
+        } catch (JSONException e) {
+            Log.e("xhz", "getArriticleTypes()解析异常");
+        }
+
+        return datas;
+    }
+
+    /**
+     * 文章列表
+     *
+     * @param json
+     * @return
+     */
+    public static List<Article> getArticles(String json) {
+        List<Article> datas = new ArrayList<Article>();
+        KJDB jkdb= KJDB.create();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Article data = new Article();
+                JSONObject obj = jsonArray.getJSONObject(i);
+                data.setArticleID(obj.optInt("ArticleID"));
+                data.setArticleLogo(obj.optString("ArticleLogo"));
+                data.setArticleIcon(obj.optString("ArticleIcon"));
+                data.setArticleTitle(obj.optString("ArticleTitle"));
+                data.setArticleTitle(obj.optString("ArticleTitle"));
+                data.setArticle(obj.optString("Article"));
+                data.setMobile(obj.optString("Mobile"));
+                data.setLocation(obj.optString("Location"));
+                data.setLocationLongitude(obj.optString("LocationLongitude"));
+                data.setLocationLatitude(obj.optString("LocationLatitude"));
+                data.setSequence(obj.optString("Sequence","测试"));
+                data.setArticleCategoryID(obj.optInt("ArticleCategoryID"));
+
+                if(jkdb.findAllByWhere(Article.class,"ArticleID = "+obj.optString("ArticleID")).size()!=0)
+                    jkdb.update(data);
+                else
+                    jkdb.save(data);
+                datas.add(data);
+            }
+        } catch (JSONException e) {
+            Log.e("xhz", "getArticles()解析异常");
+        }
+
+        return datas;
+    }
+
+
+    /**
+     * 首页新闻列表
+     *
+     * @param json
+     * @return
+     */
+    public static List<News> getNews(String json) {
+        List<News> datas = new ArrayList<News>();
+        KJDB jkdb= KJDB.create();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                News data = new News();
+                JSONObject obj = jsonArray.getJSONObject(i);
+                data.setNewsID(obj.getInt("NewsID"));
+                data.setNewsLogo(obj.optString("NewsLogo"));
+                data.setNewsTitle(obj.optString("NewsTitle"));
+                data.setNewsContent(obj.optString("NewsContent"));
+                data.setAuthor(obj.optString("Author"));
+                data.setReleaseDate(obj.optString("ReleaseDate"));
+                if(jkdb.findAllByWhere(News.class,"NewsID = "+obj.optString("NewsID")).size()!=0)
+                    jkdb.update(data);
+                else
+                    jkdb.save(data);
+                datas.add(data);
+            }
+        } catch (JSONException e) {
+            Log.e("xhz", "getNews()解析异常");
+        }
+
+        return datas;
+    }
+
+    /**
+     * Document列表
+     *
+     * @param json
+     * @return
+     */
+    public static List<Documents> getDocuments(String json) {
+        List<Documents> datas = new ArrayList<Documents>();
+        KJDB jkdb= KJDB.create();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Documents data = new Documents();
+                JSONObject obj = jsonArray.getJSONObject(i);
+                data.setDocumentID(obj.optInt("DocumentID"));
+                data.setDocumentTitle(obj.optString("DocumentTitle"));
+                data.setDocumentURL(obj.optString("DocumentURL"));
+                if(jkdb.findAllByWhere(Documents.class,"DocumentID = "+obj.optString("DocumentID")).size()!=0)
+                    jkdb.update(data);
+                else
+                    jkdb.save(data);
+                datas.add(data);
+            }
+        } catch (JSONException e) {
+            Log.e("xhz", "getDocuments()解析异常");
         }
 
         return datas;

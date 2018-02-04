@@ -34,14 +34,14 @@ public class Article {
     private String Location; //
     private String LocationLongitude; //
     private String LocationLatitude; //
-    private String IsActive; //
+//    private String IsActive; //
     private String Sequence; //
     private int ArticleCategoryID; //
-    private String created_at; //
-    private String updated_at; //
-    private String DocumentID; //
-    private String DocumentURL; //
-    private String DocumentTitle; //
+//    private String created_at; //
+//    private String updated_at; //
+//    private String DocumentID; //
+//    private String DocumentURL; //
+//    private String DocumentTitle; //
 
     public int getArticleID() {
         return ArticleID;
@@ -123,13 +123,13 @@ public class Article {
         LocationLatitude = locationLatitude;
     }
 
-    public String getIsActive() {
-        return IsActive;
-    }
-
-    public void setIsActive(String isActive) {
-        IsActive = isActive;
-    }
+//    public String getIsActive() {
+//        return IsActive;
+//    }
+//
+//    public void setIsActive(String isActive) {
+//        IsActive = isActive;
+//    }
 
     public String getSequence() {
         return Sequence;
@@ -139,43 +139,43 @@ public class Article {
         Sequence = sequence;
     }
 
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
-
-    public String getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(String updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public String getDocumentID() {
-        return DocumentID;
-    }
-
-    public void setDocumentID(String documentID) {
-        DocumentID = documentID;
-    }
-
-    public String getDocumentURL() {
-        return DocumentURL;
-    }
-
-    public void setDocumentURL(String documentURL) {
-        DocumentURL = documentURL;
-    }
-
-    public String getDocumentTitle() {
-        return DocumentTitle;
-    }
-
-    public void setDocumentTitle(String documentTitle) {
-        DocumentTitle = documentTitle;
-    }
+//    public String getCreated_at() {
+//        return created_at;
+//    }
+//
+//    public void setCreated_at(String created_at) {
+//        this.created_at = created_at;
+//    }
+//
+//    public String getUpdated_at() {
+//        return updated_at;
+//    }
+//
+//    public void setUpdated_at(String updated_at) {
+//        this.updated_at = updated_at;
+//    }
+//
+//    public String getDocumentID() {
+//        return DocumentID;
+//    }
+//
+//    public void setDocumentID(String documentID) {
+//        DocumentID = documentID;
+//    }
+//
+//    public String getDocumentURL() {
+//        return DocumentURL;
+//    }
+//
+//    public void setDocumentURL(String documentURL) {
+//        DocumentURL = documentURL;
+//    }
+//
+//    public String getDocumentTitle() {
+//        return DocumentTitle;
+//    }
+//
+//    public void setDocumentTitle(String documentTitle) {
+//        DocumentTitle = documentTitle;
+//    }
 }
