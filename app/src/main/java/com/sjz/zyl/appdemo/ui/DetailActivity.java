@@ -15,7 +15,7 @@ import org.kymjs.kjframe.KJActivity;
 
 
 /**
- * @author gao_chun
+ * @author 张迎乐
  * 自定义标题栏
  */
 public class DetailActivity extends KJActivity implements OnClickListener{
