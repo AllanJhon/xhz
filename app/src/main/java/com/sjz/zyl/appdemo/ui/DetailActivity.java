@@ -1,17 +1,21 @@
 package com.sjz.zyl.appdemo.ui;
 
 import android.content.Intent;
+import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sjz.zyl.appdemo.R;
+import com.sjz.zyl.appdemo.domain.Article;
 
 import org.kymjs.kjframe.KJActivity;
+import org.kymjs.kjframe.KJDB;
 
 
 /**
@@ -23,15 +27,23 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     //private RelativeLayout mLayoutTitleBar;
     private TextView mTitleTextView;
     private Button mBackwardbButton;
+    private TextView textView;
+    private EditText search;
+    private int id;
+    private KJDB kjdb;
+    private Article article;
     private Button mForwardButton;
     private FrameLayout mContentLayout;
 
     private void setupViews() {
-        super.setContentView(R.layout.custom_title_bar);
+        super.setContentView(R.layout.detail);
         Intent intent = getIntent();
-        String a = intent.getStringExtra("id"); // 没有输入值默认为0
+        id = intent.getIntExtra("id",0); // 没有输入值默认为0
         String b = intent.getStringExtra("value"); // 没有输入值默认为0
         mTitleTextView = (TextView) findViewById(R.id.text_title);
+        textView=(TextView) findViewById(R.id.article_content);
+        search=(EditText)findViewById(R.id.search);
+        search.setVisibility(View.GONE);
         mTitleTextView.setText(b);
         //mContentLayout = (FrameLayout) findViewById(R.id.layout_content);
         mBackwardbButton = (Button) findViewById(R.id.button_backward);
@@ -43,6 +55,14 @@ public class DetailActivity extends KJActivity implements OnClickListener{
         });
     }
 
+
+    @Override
+    public void initData() {
+        super.initData();
+        kjdb = KJDB.create();
+        article= kjdb.findById(id,Article.class);
+        textView.setText(Html.fromHtml(article.getArticle()));
+    }
     /**
      * 是否显示返回按钮
      * @param backwardResid  文字

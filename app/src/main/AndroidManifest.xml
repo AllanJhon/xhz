@@ -25,6 +25,7 @@
         </activity>
         <activity android:name="com.sjz.zyl.appdemo.ui.Main" />
         <activity android:name="com.sjz.zyl.appdemo.ui.TitleActivity" />
+        <activity android:name="com.sjz.zyl.appdemo.ui.DetailActivity" />
     </application>
 
 </manifest>

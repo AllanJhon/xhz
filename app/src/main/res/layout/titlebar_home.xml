@@ -14,17 +14,17 @@
         android:background="@drawable/logo"
         android:textColor="#FFFFFF" />
 
-    <EditText
-        android:id="@+id/search"
-        android:background="@drawable/edit_text_shape"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:focusable="false"
-        android:layout_weight="0.18"
-        android:gravity="left|center_vertical"
-        android:layout_margin="10dp"
-        android:textColor="@color/black"
-        android:radius="100dp"
-        android:textSize="16sp" />
+    <!--<EditText-->
+        <!--android:id="@+id/search"-->
+        <!--android:background="@drawable/edit_text_shape"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:focusable="false"-->
+        <!--android:layout_weight="0.18"-->
+        <!--android:gravity="left|center_vertical"-->
+        <!--android:layout_margin="10dp"-->
+        <!--android:textColor="@color/black"-->
+        <!--android:radius="100dp"-->
+        <!--android:textSize="16sp" />-->
 
 </LinearLayout>

@@ -40,7 +40,7 @@ public class ExpandRowGridAdapter extends CommonAdapter<Categories> {
             @Override
             public void onClick(View v) {
                 if (listener != null) {
-                    listener.onClick(item.getArticleCategoryID(), item.getArticleCategory());
+                    listener.onClick(item.getArticleCategoryID(), item.getArticleCategory(),item.getDisplayType());
                 }
 
             }
@@ -49,6 +49,7 @@ public class ExpandRowGridAdapter extends CommonAdapter<Categories> {
 
     public interface OnClick {
         void onClick(int dataId, String str);
+        void onClick(int dataId, String str,String displayType);
     }
 
     public void setOnClick(OnClick listener) {

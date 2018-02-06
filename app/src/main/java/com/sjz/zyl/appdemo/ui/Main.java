@@ -21,6 +21,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.sjz.zyl.appdemo.R;
+import com.sjz.zyl.appdemo.domain.Article;
 import com.sjz.zyl.appdemo.domain.Categories;
 import com.sjz.zyl.appdemo.utils.Utils;
 import com.sjz.zyl.appdemo.utils.adapter.ExpandRowGridAdapter;
@@ -35,6 +36,9 @@ import com.sjz.zyl.appdemo.widget.ImageViewPlus;
 
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJBitmap;
+import org.kymjs.kjframe.KJDB;
+import org.kymjs.kjframe.ui.ViewInject;
+import org.kymjs.kjframe.utils.KJLoger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -461,6 +465,21 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         intent.putExtra("value", str);
         setResult(RESULT_OK, intent);
         startActivity(intent);
+//        finish();
+//        Toast.makeText(getApplicationContext(),"点击了"+str,Toast.LENGTH_SHORT);
+    }
+    public void onClick(int dataId, String str,String displayType) {
+        KJDB kjdb=KJDB.create();
+       List<Article> articleList= kjdb.findAllByWhere(Article.class,"ArticleCategoryID = "+dataId);
+        if (displayType.equals("0")&&articleList.size()>0) {
+            Intent intent = new Intent(Main.this, DetailActivity.class);
+            intent.putExtra("id", articleList.get(0).getArticleID());
+            intent.putExtra("value", str);
+            setResult(RESULT_OK, intent);
+            startActivity(intent);
+        }else if(articleList.size()==0){
+            ViewInject.toast("该分类下无文章！");
+        }
 //        finish();
 //        Toast.makeText(getApplicationContext(),"点击了"+str,Toast.LENGTH_SHORT);
     }
