@@ -210,4 +210,22 @@ public class Parser {
 
         return datas;
     }
+
+    /**
+     * Document列表
+     *
+     * @param DocumentId
+     * @return
+     */
+    public static String getUrl(String DocumentId) {
+        KJDB jkdb= KJDB.create();
+        String url="";
+        try {
+            url=jkdb.findById(DocumentId,Documents.class).getDocumentURL();
+        } catch (Exception e) {
+            Log.e("xhz", "getDocuments()解析异常");
+        }
+
+        return url;
+    }
 }

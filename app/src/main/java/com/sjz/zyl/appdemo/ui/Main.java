@@ -479,6 +479,12 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             startActivity(intent);
         }else if(articleList.size()==0){
             ViewInject.toast("该分类下无文章！");
+        }else if(displayType.equals("1")){
+            Intent intent = new Intent(Main.this, ArticleListActivity.class);
+            intent.putExtra("id", dataId);
+            intent.putExtra("value", str);
+            setResult(RESULT_OK, intent);
+            startActivity(intent);
         }
 //        finish();
 //        Toast.makeText(getApplicationContext(),"点击了"+str,Toast.LENGTH_SHORT);
