@@ -1,89 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fadingEdge="vertical"
-    android:scrollbars="none">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="260dp"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin">
+    <include layout="@layout/custom_title_bar" />
 
-        <include layout="@layout/custom_title_bar" />
-        <ImageView
-            android:id="@+id/image1"
-            android:layout_width="fill_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/main_1"></ImageView>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="0px"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="30px"
-            android:layout_weight="0.25"
-            android:gravity="center_horizontal"
-            android:text="村容村貌"
-            android:textColor="#2d2b2b"></TextView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dip"
-            android:padding="30dp"
-            android:background="@color/black" />
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadingEdge="vertical"
+        android:scrollbars="none">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            android:layout_weight="0.16">
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/main_1"></ImageView>
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="30px"
+                android:layout_weight="0.25"
                 android:gravity="center_horizontal"
-                android:text="中国 河北 宁晋 小河庄 "
-                android:textColor="#2d2b2b" />
+                android:text="村容村貌"
+                android:textColor="#2d2b2b"></TextView>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:background="@color/black"
+                android:padding="30dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.16"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginTop="30px"
+                    android:gravity="center_horizontal"
+                    android:text="中国 河北 宁晋 小河庄 "
+                    android:textColor="#2d2b2b" />
+
+                <TextView
+                    android:layout_width="94dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="30px"
+                    android:layout_weight="0.85"
+                    android:gravity="right"
+                    android:text="邮编："
+                    android:textColor="#2d2b2b" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="30px"
+                    android:gravity="right"
+                    android:text="050000"
+                    android:textColor="#2d2b2b" />
+            </LinearLayout>
 
             <TextView
-                android:layout_width="94dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="30px"
-                android:gravity="right"
-                android:text="邮编："
-                android:textColor="#2d2b2b"
-                android:layout_weight="0.85" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="30px"
-                android:gravity="right"
-                android:text="050000"
-                android:textColor="#2d2b2b" />
-        </LinearLayout>
-        <TextView
-            android:id="@+id/article_content"
-            android:layout_width="fill_parent"
-            android:layout_height="0px"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
-            android:layout_weight="0.25"
-            android:gravity="center_horizontal"
-            android:text="一个位于冀中平原上的普通村庄——小河庄，经过
+                android:id="@+id/article_content"
+                android:layout_width="fill_parent"
+                android:layout_height="0px"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0.25"
+                android:gravity="center_horizontal"
+                android:text="一个位于冀中平原上的普通村庄——小河庄，经过
 
     20年的探索与实践，在一片贫瘠的盐碱地上建成了小有
 
@@ -94,10 +101,11 @@
     这里的人民不失时机的摇起了自己的战船，吹晌号角，
 
     开辟了“中国电线电缆第一庄”，又一次实现了新的跨越！"
-            android:textColor="#2d2b2b"></TextView>
-        <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="Hello World!" />-->
-    </LinearLayout>
-</ScrollView>
+                android:textColor="#2d2b2b"></TextView>
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Hello World!" />-->
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

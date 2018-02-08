@@ -8,20 +8,21 @@
 
     <Button
         android:id="@+id/button_backward"
-        android:layout_width="14dp"
+        android:layout_width="18dp"
         android:layout_height="30dp"
         android:layout_marginLeft="10dp"
         android:background="@drawable/back" />
 
     <TextView
         android:id="@+id/text_title"
-        android:layout_width="100dip"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="标题栏"
+        android:text="电线电缆企业"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:layout_marginLeft="10dp"
         android:typeface="monospace" />
 
     <EditText

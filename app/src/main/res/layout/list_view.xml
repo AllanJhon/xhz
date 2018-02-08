@@ -8,7 +8,9 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadingEdge="none"/>
+        android:fadingEdge="none" />
+
+    <include layout="@layout/custom_title_bar" />
 
     <com.sjz.zyl.appdemo.widget.EmptyLayout
         android:id="@+id/empty_layout"
