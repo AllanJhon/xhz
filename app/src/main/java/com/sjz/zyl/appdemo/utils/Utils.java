@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.ArticleType;
 import com.sjz.zyl.appdemo.domain.Categories;
+import com.sjz.zyl.appdemo.domain.News;
 import com.sjz.zyl.appdemo.utils.entity.BaseData;
 import com.sjz.zyl.appdemo.utils.entity.GongZhong;
 import com.sjz.zyl.appdemo.utils.entity.XhzCategories;
@@ -39,6 +40,20 @@ public class Utils {
         xhzCategoriesArrayList.add(XhzCategories);
         KJLoger.state("db", "getJobType: "+ xhzCategoriesArrayList.size());
         return xhzCategoriesArrayList;
+    }
+
+
+    public static List<News> getNews(Context context) {
+        KJDB kjdb = KJDB.create(true);
+        List<News> newsList = new ArrayList<News>();
+        List<News> newsList_return=new ArrayList<News>() ;
+        newsList = kjdb.findAll(News.class);
+        if (newsList.size() >= 3){
+            newsList_return = newsList.subList(0, 2);
+        }else if(newsList.size()>0){
+            newsList_return = newsList.subList(0, newsList.size());
+        }
+        return newsList_return;
     }
 
     /**

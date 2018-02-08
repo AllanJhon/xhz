@@ -23,6 +23,8 @@ import android.widget.ViewFlipper;
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
 import com.sjz.zyl.appdemo.domain.Categories;
+import com.sjz.zyl.appdemo.domain.News;
+import com.sjz.zyl.appdemo.utils.Parser;
 import com.sjz.zyl.appdemo.utils.Utils;
 import com.sjz.zyl.appdemo.utils.adapter.ExpandRowGridAdapter;
 import com.sjz.zyl.appdemo.utils.adapter.MyViewPagerAdapter;
@@ -54,7 +56,8 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
     //招聘数据
     private ViewFlipper flipper;
 //    private int[] resId = {R.drawable.main_1, R.drawable.main_2, R.drawable.main_3};
-    private String[] resId={"http://sj-xhz.oss-cn-qingdao.aliyuncs.com/2018-01-28-11-41-27-5a6db6e71b9b6.jpg","http://sj-xhz.oss-cn-qingdao.aliyuncs.com/2018-01-28-11-49-29-5a6db8c9736a9.jpg"};
+//    private String[] resId={"http://sj-xhz.oss-cn-qingdao.aliyuncs.com/2018-01-28-11-41-27-5a6db6e71b9b6.jpg","http://sj-xhz.oss-cn-qingdao.aliyuncs.com/2018-01-28-11-49-29-5a6db8c9736a9.jpg"};
+    private List<News> newses=new ArrayList<News>();
     private LinearLayout linearLayout;
     private float start;
     private float end;
@@ -93,11 +96,12 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         setContentView(R.layout.activity_main);
         flipper = (ViewFlipper) findViewById(R.id.flipper);
         linearLayout = (LinearLayout) findViewById(R.id.show_dot);
-        NUM = resId.length;
+        initData();
+
         /*
         * 动态导入的方式为ViewFlipper加入子View
         * */
-        for (int i = 0; i < resId.length; i++) {
+        for (int i = 0; i <newses.size(); i++) {
             LayoutInflater inflater = getLayoutInflater();
             int height = (int) (Main.this.getResources().getDisplayMetrics().density * 10 + 0.1f);
             int weight = (int) (Main.this.getResources().getDisplayMetrics().density * 10 + 0.1f);
@@ -111,15 +115,15 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             }
             v.setLayoutParams(vlp);
             linearLayout.addView(v);
-            ImageViewPlus imageViewPlus = getImageView(resId[i]);
+            ImageViewPlus imageViewPlus = getImageView(Parser.getUrl(newses.get(i).getNewsLogo()));
             imageViewPlus.setBackgroundColor(Color.TRANSPARENT);
             flipper.addView(imageViewPlus);
             flipper.setBackgroundColor(Color.TRANSPARENT);
             mDotList.add(v);
         }
-        sendMes();
-        initData();
         initView();
+        sendMes();
+
     }
 
     @SuppressLint("HandlerLeak")
@@ -161,8 +165,13 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
     private ImageViewPlus getImageView(String resId) {
         ImageViewPlus image = new ImageViewPlus(this, null);
         KJBitmap kjb = new KJBitmap();
-        kjb.display(image,
-                resId);
+        if(!"".equals(resId)) {
+            kjb.display(image,
+                    resId);
+        }else{
+            kjb.displayCacheOrDefult(image,
+                    resId,R.drawable.finance);
+        }
         return image;
     }
 
@@ -247,6 +256,8 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         if (data == null) {
 //            data = Utils.getJobType(this);
             data=Utils.getCategories(this);
+            newses=Utils.getNews(this);
+            NUM = newses.size();
         }
     }
 

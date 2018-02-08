@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.ui.Main;
+import com.sjz.zyl.appdemo.utils.Parser;
 import com.sjz.zyl.appdemo.utils.entity.XhzCategories;
 import com.sjz.zyl.appdemo.utils.entity.ZhaoPin;
 
@@ -60,14 +61,8 @@ public class CurrenPositionView extends LinearLayout {
             TableRow row = new TableRow(getContext());
             int length = n == h && len!=0 ? len : ROW_NUM;
             for (int m = 0; m < length; m++) {
-//                MyTextView mview = (MyTextView) layoutInflater.inflate(R.layout.table_row_item, null);
-//                mview.setText(data.getJobtype().get(location).getName());
-//                mview.setTag("" + viewId + location);
-//                mview.setOnClickListener(((Main) getContext()).new OnItemClick(data, location, n, tableLayout, mview));
-//                row.addView(mview);
-
                 MyRowItemView myRowItemView= (MyRowItemView) layoutInflater.inflate(R.layout.table_row_my, null);
-                myRowItemView.setImageView(data.getArticleType().get(location).getTypeIconURL());
+                myRowItemView.setImageView(Parser.getUrl(data.getArticleType().get(location).getArticleTypeIcon()));
                 myRowItemView.setMyTextView(data.getArticleType().get(location).getArticleType());
                 myRowItemView.setTag("" + viewId + location);
                 myRowItemView.setOnClickListener(((Main) getContext()).new OnItemClick(data, location, n, tableLayout, myRowItemView));

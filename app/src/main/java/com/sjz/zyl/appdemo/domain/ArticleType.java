@@ -32,6 +32,7 @@ public class ArticleType {
     @Id()
     private int ArticleTypeID; //
     private String ArticleType; //
+    private String ArticleTypeIcon;
     private String Sequence; //
     private String TypeIconURL; //
     @OneToMany(manyColumn = "ArticleTypeID")
@@ -75,5 +76,13 @@ public class ArticleType {
 
     public void setCategoriesList(List<Categories> categoriesList) {
         this.categoriesList = categoriesList;
+    }
+
+    public String getArticleTypeIcon() {
+        return ArticleTypeIcon;
+    }
+
+    public void setArticleTypeIcon(String articleTypeIcon) {
+        ArticleTypeIcon = articleTypeIcon;
     }
 }

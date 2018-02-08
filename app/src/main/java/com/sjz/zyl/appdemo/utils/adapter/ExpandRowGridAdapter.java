@@ -9,6 +9,7 @@ import com.sjz.zyl.appdemo.AppConfig;
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
 import com.sjz.zyl.appdemo.domain.Categories;
+import com.sjz.zyl.appdemo.utils.Parser;
 
 import org.kymjs.kjframe.KJBitmap;
 
@@ -33,8 +34,15 @@ public class ExpandRowGridAdapter extends CommonAdapter<Categories> {
         view.setBackgroundColor(view.getResources().getColor(R.color.click));
         ImageView imageView=(ImageView) view.findViewById(R.id.img);
         KJBitmap kjb = new KJBitmap();
-        kjb.displayCacheOrDefult(imageView,
-                AppConfig.image_path+item.getCategoryIconURL(),R.drawable.finance);
+//        kjb.displayLoadAndErrorBitmap(imageView,
+//                Parser.getUrl(item.getArticleCategoryIcon()),R.drawable.loading,R.drawable.app_logo);
+        if(kjb.getMemoryCache(Parser.getUrl(item.getArticleCategoryIcon()))!=null){
+            kjb.displayCacheOrDefult(imageView,
+                    Parser.getUrl(item.getArticleCategoryIcon()),R.drawable.finance);
+        }else {
+            kjb.displayLoadAndErrorBitmap(imageView,
+                    Parser.getUrl(item.getArticleCategoryIcon()),R.drawable.loading,R.drawable.app_logo);
+        }
 //        imageView.setImageResource(R.drawable.economic);
         view.setOnClickListener(new OnClickListener() {
             @Override

@@ -31,6 +31,7 @@ public class Categories {
     private int ArticleCategoryID; //
     private String ArticleCategory; //
     private String Sequence; //
+    private String ArticleCategoryIcon; //
     private String DisplayType; //
     private int ArticleTypeID; //
     private String ArticleType; //
@@ -99,5 +100,13 @@ public class Categories {
 
     public void setTypeIconURL(String typeIconURL) {
         TypeIconURL = typeIconURL;
+    }
+
+    public String getArticleCategoryIcon() {
+        return ArticleCategoryIcon;
+    }
+
+    public void setArticleCategoryIcon(String articleCategoryIcon) {
+        ArticleCategoryIcon = articleCategoryIcon;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,11 +30,11 @@ public class MyRowItemView extends LinearLayout{
     }
     public MyRowItemView(Context context, AttributeSet attr) {
         super(context,attr);
-        LayoutInflater.from(context).inflate(R.layout.row_item_view,this,true);
+        View v=LayoutInflater.from(context).inflate(R.layout.row_item_view,this,true);
         mContext=context;
-        imageView=(ImageView)findViewById(R.id.img);
-        linearLayout=(LinearLayout)findViewById(R.id.rowLiner);
-        myTextView=(TextView)findViewById(R.id.text);
+        imageView=(ImageView)v.findViewById(R.id.img);
+        linearLayout=(LinearLayout)v.findViewById(R.id.rowLiner);
+        myTextView=(TextView)v.findViewById(R.id.text);
     }
 
     @Override
@@ -71,8 +72,14 @@ public class MyRowItemView extends LinearLayout{
 
     public void setImageView(String url){
         KJBitmap kjb = new KJBitmap();
-        kjb.displayCacheOrDefult(imageView,
-                AppConfig.image_path+url,R.drawable.education);
+
+        if(kjb.getMemoryCache(url)!=null){
+            kjb.displayCacheOrDefult(imageView,
+                    url,R.drawable.finance);
+        }else {
+            kjb.displayLoadAndErrorBitmap(imageView,
+                    url,R.drawable.loading,R.drawable.app_logo);
+        }
     }
 
     public void setMyTextView(String str){

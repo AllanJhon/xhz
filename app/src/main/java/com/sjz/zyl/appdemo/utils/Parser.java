@@ -56,6 +56,7 @@ public class Parser {
                 data.setArticleCategoryID(obj.optInt("ArticleCategoryID",1));
                 data.setArticleCategory(obj.optString("ArticleCategory","测试"));
                 data.setSequence(obj.optString("Sequence","测试"));
+                data.setArticleCategoryIcon(obj.optString("ArticleCategoryIcon","测试"));
                 data.setDisplayType(obj.optString("DisplayType","测试"));
                 data.setArticleTypeID(obj.optInt("ArticleTypeID",1));
                 data.setArticleType(obj.optString("ArticleType","测试"));
@@ -93,7 +94,7 @@ public class Parser {
                 data.setArticleTypeID(obj.optInt("ArticleTypeID",1));
                 data.setArticleType(obj.optString("ArticleType","测试"));
                 data.setTypeIconURL(obj.optString("TypeIconURL","测试"));
-
+                data.setArticleTypeIcon(obj.optString("ArticleTypeIcon","测试"));
                 if(jkdb.findAllByWhere(ArticleType.class,"ArticleTypeID = "+obj.optString("ArticleTypeID")).size()!=0)
                     jkdb.update(data);
                 else
@@ -222,6 +223,7 @@ public class Parser {
         String url="";
         try {
             url=jkdb.findById(DocumentId,Documents.class).getDocumentURL();
+            Log.e("xhz", "url: "+url);
         } catch (Exception e) {
             Log.e("xhz", "getDocuments()解析异常");
         }
