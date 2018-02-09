@@ -59,6 +59,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
 //    private String[] resId={"http://sj-xhz.oss-cn-qingdao.aliyuncs.com/2018-01-28-11-41-27-5a6db6e71b9b6.jpg","http://sj-xhz.oss-cn-qingdao.aliyuncs.com/2018-01-28-11-49-29-5a6db8c9736a9.jpg"};
     private List<News> newses=new ArrayList<News>();
     private LinearLayout linearLayout;
+    private LinearLayout image_linearLayout;
     private float start;
     private float end;
     private static int NUM = 3;//总图片的数量
@@ -229,6 +230,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
 
     private void initView() {
         currenPositionLinear = (LinearLayout) findViewById(R.id.zp_curr_potion_linear);
+        image_linearLayout=(LinearLayout)findViewById(R.id.image_linearLayout);
         for (int num = 0; num < data.size(); num++) {
             XhzCategories xhzCategories = data.get(num);
             CurrenPositionView currenPositionView = new CurrenPositionView(this);
@@ -247,6 +249,15 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             }
 
         }
+
+//        //新闻图片点击时间
+//        image_linearLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int current = flipper.getDisplayedChild();
+//                Toast.makeText(getApplicationContext(),"点击了"+newses.get(current).getNewsID(),Toast.LENGTH_SHORT);
+//            }
+//        });
     }
 
     public void initData() {

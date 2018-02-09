@@ -23,12 +23,12 @@
 
             <ImageView
                 android:id="@+id/image1"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/main_1"></ImageView>
+                android:layout_marginTop="16dp"></ImageView>
 
             <TextView
+                android:id="@+id/article_title"
                 android:layout_width="fill_parent"
                 android:layout_height="0px"
                 android:layout_gravity="center_horizontal"
@@ -54,6 +54,7 @@
                 android:weightSum="1">
 
                 <TextView
+                    android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"

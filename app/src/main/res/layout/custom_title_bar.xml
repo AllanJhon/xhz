@@ -31,11 +31,11 @@
         android:background="@drawable/edit_text_shape"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="false"
         android:gravity="left|center_vertical"
         android:layout_margin="10dp"
         android:textColor="@color/black"
         android:radius="100dp"
+        android:imeOptions="actionSearch"
         android:textSize="16sp" />
 
 </LinearLayout>

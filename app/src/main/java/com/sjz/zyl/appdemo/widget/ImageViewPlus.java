@@ -93,7 +93,7 @@ public class ImageViewPlus extends ImageView {
             mPaintBitmap.setShader(mShader);
             mPaintBorder.setStyle(Paint.Style.STROKE);
             mPaintBorder.setStrokeWidth(mBorderWidth);
-            mPaintBorder.setColor(mBorderWidth > 0 ? mBorderColor : Color.TRANSPARENT);
+            mPaintBorder.setColor( Color.TRANSPARENT);
                 mRectBorder.set(halfBorderWidth, halfBorderWidth, dstWidth - halfBorderWidth, dstHeight - halfBorderWidth);
                 mRectBitmap.set(0.0f, 0.0f, dstWidth - doubleBorderWidth, dstHeight - doubleBorderWidth);
                 float borderRadius = mRectRoundRadius - halfBorderWidth > 0.0f ? mRectRoundRadius - halfBorderWidth : 0.0f;

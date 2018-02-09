@@ -17,13 +17,15 @@ package com.sjz.zyl.appdemo.domain;
 
 import org.kymjs.kjframe.database.annotate.Id;
 
+import java.io.Serializable;
+
 /**
  * Description
  *
  * @author by 张迎乐(yingle1991@gmail.com)
  * @since 2018-01-25.
  */
-public class Article {
+public class Article implements Serializable {
     @Id()
     private int ArticleID; //
     private String ArticleLogo; //

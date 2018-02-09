@@ -31,7 +31,7 @@ import java.util.List;
 public class AppStartActivity extends KJActivity {
 
     public static String TAG = "appstart";
-    public static String getCategories_path="api/v1/categories";
+//    public static String getCategories_path="api/v1/categories";
     public static String getAllDatas_path="api/v1/syncAll";
     private KJDB kjdb;
     private List<Categories> list;

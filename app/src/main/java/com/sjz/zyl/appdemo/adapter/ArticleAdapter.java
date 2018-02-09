@@ -1,5 +1,6 @@
 package com.sjz.zyl.appdemo.adapter;
 
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -7,6 +8,7 @@ import android.widget.ImageView;
 
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
+import com.sjz.zyl.appdemo.ui.DetailActivity;
 import com.sjz.zyl.appdemo.utils.Parser;
 
 import org.kymjs.kjframe.KJBitmap;
@@ -38,7 +40,7 @@ public class ArticleAdapter extends KJAdapter<Article> {
             image.setVisibility(View.GONE);
         } else {
             image.setVisibility(View.VISIBLE);
-            onPicClick(image, url);
+            onPicClick(image, item);
             if (isScrolling) {
                 kjb.displayCacheOrDefult(image, url, R.drawable.main_1);
             } else {
@@ -48,11 +50,16 @@ public class ArticleAdapter extends KJAdapter<Article> {
         helper.setText(R.id.article_phoneTv, item.getArticleTitle());
     }
 
-    private void onPicClick(View view, final String url) {
+    private void onPicClick(View view, final Article item) {
         view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-//                UIHelper.toGallery(v.getContext(), url);
+                Intent intent = new Intent(mCxt, DetailActivity.class);
+                intent.putExtra("article",item);
+                intent.putExtra("id", item.getArticleID());
+                intent.putExtra("value", item.getArticleTitle());
+//                mCxt.setResult(RESULT_OK, intent);
+                mCxt.startActivity(intent);
             }
         });
     }

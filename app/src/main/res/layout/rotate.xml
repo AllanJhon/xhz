@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context="com.sjz.zyl.appdemo.ui.Main">
     <LinearLayout
+        android:id="@+id/image_linearLayout"
         android:layout_width="fill_parent"
         android:layout_weight="1"
         android:layout_height="0px"
