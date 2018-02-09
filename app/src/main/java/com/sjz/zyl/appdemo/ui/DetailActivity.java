@@ -25,6 +25,7 @@ import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.ui.BindView;
+import org.kymjs.kjframe.ui.ViewInject;
 
 import java.net.URL;
 
@@ -68,7 +69,9 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     @Override
     public void initWidget() {
         article_title.setText(article.getArticleTitle());
-        location.setText(article.getLocation());
+        if(!"null".equals(article.getLocation())) {
+            location.setText(article.getLocation());
+        }
         search.setVisibility(View.GONE);
         if (!"".equals(article.getArticleLogo())) {
             KJBitmap kjBitmap = new KJBitmap();
@@ -97,6 +100,21 @@ public class DetailActivity extends KJActivity implements OnClickListener{
             @Override
             public void onClick(View v) {
                 onBackward(v);
+            }
+        });
+        location.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                ViewInject.toast(article.getLocationLatitude());
+                if(!"null".equals(article.getLocationLatitude())&&!"null".equals(article.getLocationLongitude()))
+                {
+                    Intent intent = new Intent(DetailActivity.this, InfoWindowActivity.class);
+                    intent.putExtra("lat", Float.parseFloat(article.getLocationLatitude()));
+                    intent.putExtra("lnt", Float.parseFloat(article.getLocationLongitude()));
+                    intent.putExtra("lacation", article.getLocation());
+                    setResult(RESULT_OK, intent);
+                    startActivity(intent);
+                }
             }
         });
     }

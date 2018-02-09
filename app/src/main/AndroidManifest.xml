@@ -16,10 +16,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.AppStartActivity">
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="1047243f505afadbff806c675119bb13" />
+        <activity android:name="com.sjz.zyl.appdemo.ui.AppStartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -27,6 +29,10 @@
         <activity android:name="com.sjz.zyl.appdemo.ui.TitleActivity" />
         <activity android:name="com.sjz.zyl.appdemo.ui.DetailActivity" />
         <activity android:name="com.sjz.zyl.appdemo.ui.ArticleListActivity" />
+
+        <activity
+            android:name="com.sjz.zyl.appdemo.ui.InfoWindowActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

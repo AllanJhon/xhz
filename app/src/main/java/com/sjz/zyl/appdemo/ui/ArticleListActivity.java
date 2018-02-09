@@ -110,6 +110,12 @@ public class ArticleListActivity extends KJActivity{
                 mRefreshLayout.setHasMoreData(false);
             }
         });
+        mBackwardbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackward(view);
+            }
+        });
     }
 
 

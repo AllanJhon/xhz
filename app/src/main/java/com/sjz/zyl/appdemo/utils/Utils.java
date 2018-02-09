@@ -28,6 +28,7 @@ import java.util.List;
 public class Utils {
     public static List<XhzCategories> getCategories(Context context) {
         KJDB kjdb=KJDB.create(true);
+//        kjdb.deleteById(Categories.class,27);
         List<XhzCategories> xhzCategoriesArrayList=new ArrayList<XhzCategories>();
         XhzCategories XhzCategories=new XhzCategories(0,"类别");
         List<ArticleType> articleTypeList=kjdb.findAll(ArticleType.class,"ArticleTypeID");

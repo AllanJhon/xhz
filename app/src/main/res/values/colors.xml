@@ -8,5 +8,6 @@
     <color name="colorTitleBar">#2d2d2d</color>
     <color name="click">#f1f1f1</color>
     <color name="window_background">#EBEBEB</color>
+    <color name="transparent">#00000000</color>
     <color name="main_gray">#9A9A9A</color>
 </resources>
