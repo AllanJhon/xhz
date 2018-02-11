@@ -34,6 +34,7 @@
         <activity android:name="com.sjz.zyl.appdemo.ui.Main" />
         <activity android:name="com.sjz.zyl.appdemo.ui.TitleActivity" />
         <activity android:name="com.sjz.zyl.appdemo.ui.DetailActivity" />
+        <activity android:name="com.sjz.zyl.appdemo.ui.NewsActivity" />
         <activity android:name="com.sjz.zyl.appdemo.ui.ArticleListActivity" />
         <activity
             android:name="com.sjz.zyl.appdemo.ui.amap.RouteActivity"

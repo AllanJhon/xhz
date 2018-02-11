@@ -94,6 +94,8 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 		lat= intent.getFloatExtra("lat", 39.91746f);
 		lng = intent.getFloatExtra("lng",116.396481f); // 没有输入值默认为0
 		latlng= new LatLng(lat, lng);
+		mEndPoint=new LatLonPoint(lat,lng);
+		mEndPoint_bus=new LatLonPoint(lat,lng);
 		init();
 //		getIntentData();
 		setfromandtoMarker();
@@ -126,7 +128,8 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 	 */
 	private void init() {
 		if (aMap == null) {
-			aMap = mapView.getMap();	
+			aMap = mapView.getMap();
+			setfromandtoMarker();
 		}
 		registerListener();
 		mRouteSearch = new RouteSearch(this);

@@ -17,6 +17,7 @@ package com.sjz.zyl.appdemo;
 
 import android.app.Application;
 
+import org.kymjs.kjframe.bitmap.BitmapConfig;
 import org.kymjs.kjframe.http.HttpConfig;
 
 /**

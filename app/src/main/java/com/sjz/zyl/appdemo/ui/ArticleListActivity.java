@@ -60,6 +60,7 @@ public class ArticleListActivity extends KJActivity{
         Intent intent = getIntent();
         id = intent.getIntExtra("id", 0); // 没有输入值默认为0
 
+
     }
 
     @Override

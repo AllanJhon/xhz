@@ -56,12 +56,14 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     private Button mForwardButton;
     @BindView(id=R.id.image1)
     private ImageView image_main;
+    private String tp_title;
     private FrameLayout mContentLayout;
 
     private void setupViews() {
         Intent intent = getIntent();
         article=(Article) intent.getSerializableExtra("article");
         id = intent.getIntExtra("id",0); // 没有输入值默认为0
+        tp_title=intent.getStringExtra("value");
         handler=new Handler();
 
 //        String title = intent.getStringExtra("value"); // 没有输入值默认为0
@@ -69,7 +71,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     }
     @Override
     public void initWidget() {
-        article_title.setText(article.getArticleTitle());
+
         if(!"null".equals(article.getLocation())) {
             location.setText(article.getLocation());
         }
@@ -80,7 +82,13 @@ public class DetailActivity extends KJActivity implements OnClickListener{
         }else{
             image_main.setVisibility(View.GONE);
         }
-        mTitleTextView.setText(article.getArticleTitle());
+        if(!"".equals(article.getArticleTitle())&&article.getArticleTitle()!=null)
+//        mTitleTextView.setText(article.getArticleTitle());
+            article_title.setText(article.getArticleTitle());
+        else
+            article_title.setVisibility(View.GONE);
+
+        mTitleTextView.setText(tp_title);
         textView.setText(Html.fromHtml(article.getArticle()));
         textView.setMovementMethod(LinkMovementMethod.getInstance());//设置可点击
         new Thread(new Runnable() {

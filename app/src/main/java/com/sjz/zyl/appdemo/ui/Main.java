@@ -39,6 +39,7 @@ import com.sjz.zyl.appdemo.widget.ImageViewPlus;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.KJDB;
+import org.kymjs.kjframe.bitmap.BitmapConfig;
 import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.KJLoger;
 
@@ -115,9 +116,24 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
                 v.setBackgroundResource(R.drawable.dot_focus);
             }
             v.setLayoutParams(vlp);
+
             linearLayout.addView(v);
             ImageViewPlus imageViewPlus = getImageView(Parser.getUrl(newses.get(i).getNewsLogo()));
             imageViewPlus.setBackgroundColor(Color.TRANSPARENT);
+            //新闻图片点击时间
+            imageViewPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int current = flipper.getDisplayedChild();
+//                Toast.makeText(getApplicationContext(),"点击了"+newses.get(current).getNewsID(),Toast.LENGTH_SHORT);
+//                    ViewInject.toast(newses.get(current).getNewsID()+"");
+                    Intent intent = new Intent(Main.this, NewsActivity.class);
+                    intent.putExtra("id", newses.get(current).getNewsID());
+                    intent.putExtra("value", newses.get(current).getNewsTitle());
+                    setResult(RESULT_OK, intent);
+                    startActivity(intent);
+                }
+            });
             flipper.addView(imageViewPlus);
             flipper.setBackgroundColor(Color.TRANSPARENT);
             mDotList.add(v);
@@ -165,7 +181,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
 
     private ImageViewPlus getImageView(String resId) {
         ImageViewPlus image = new ImageViewPlus(this, null);
-        KJBitmap kjb = new KJBitmap();
+        KJBitmap kjb = new KJBitmap(new BitmapConfig());
         if(!"".equals(resId)) {
             kjb.display(image,
                     resId);
@@ -250,14 +266,20 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
 
         }
 
-//        //新闻图片点击时间
-//        image_linearLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                int current = flipper.getDisplayedChild();
+        //新闻图片点击时间
+        currenPositionLinear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int current = flipper.getDisplayedChild();
 //                Toast.makeText(getApplicationContext(),"点击了"+newses.get(current).getNewsID(),Toast.LENGTH_SHORT);
-//            }
-//        });
+//                ViewInject.toast(newses.get(current).getNewsID()+"");
+                Intent intent = new Intent(Main.this, NewsActivity.class);
+                intent.putExtra("id", newses.get(current).getNewsID());
+                intent.putExtra("value", newses.get(current).getNewsTitle());
+                setResult(RESULT_OK, intent);
+                startActivity(intent);
+            }
+        });
     }
 
     public void initData() {
