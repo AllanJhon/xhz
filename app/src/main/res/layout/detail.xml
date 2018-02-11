@@ -56,9 +56,10 @@
                 <TextView
                     android:id="@+id/location"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="left"
                     android:layout_marginTop="30px"
+                    android:drawableLeft="@drawable/poi_marker_pressed"
                     android:gravity="center_horizontal"
                     android:textColor="#2d2b2b" />
 

@@ -35,7 +35,7 @@ public class ArticleAdapter extends KJAdapter<Article> {
     public void convert(AdapterHolder helper, Article item, boolean isScrolling) {
 
         ImageView image = helper.getView(R.id.article_image);
-        String url = Parser.getUrl(item.getArticleLogo());
+        String url = Parser.getUrl(item.getArticleIcon());
         if (StringUtils.isEmpty(url)) {
             image.setVisibility(View.GONE);
         } else {

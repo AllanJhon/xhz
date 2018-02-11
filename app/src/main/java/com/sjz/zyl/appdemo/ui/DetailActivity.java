@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
+import com.sjz.zyl.appdemo.ui.amap.RouteActivity;
 import com.sjz.zyl.appdemo.utils.Parser;
 import com.sjz.zyl.appdemo.widget.ImageViewPlus;
 
@@ -108,7 +109,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
 //                ViewInject.toast(article.getLocationLatitude());
                 if(!"null".equals(article.getLocationLatitude())&&!"null".equals(article.getLocationLongitude()))
                 {
-                    Intent intent = new Intent(DetailActivity.this, InfoWindowActivity.class);
+                    Intent intent = new Intent(DetailActivity.this, RouteActivity.class);
                     intent.putExtra("lat", Float.parseFloat(article.getLocationLatitude()));
                     intent.putExtra("lnt", Float.parseFloat(article.getLocationLongitude()));
                     intent.putExtra("lacation", article.getLocation());

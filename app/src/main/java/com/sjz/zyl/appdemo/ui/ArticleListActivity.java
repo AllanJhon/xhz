@@ -135,7 +135,7 @@ public class ArticleListActivity extends KJActivity{
                 if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                     ViewInject.toast(search.getText()+"");
                     KJDB kjdb=KJDB.create();
-                    List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleTitle like '%"+search.getText()+"%'");
+                    List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleTitle like '%"+search.getText()+"%' and  ArticleCategoryID = "+id);
                     adapter.refresh(datas);
 
                 }
