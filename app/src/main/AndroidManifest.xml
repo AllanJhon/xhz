@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sjz.zyl.appdemo">
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
@@ -41,6 +40,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.sjz.zyl.appdemo.ui.InfoWindowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.sjz.zyl.appdemo.ui.amap.BusRouteDetailActivity"
             android:screenOrientation="portrait" />
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService"></service>

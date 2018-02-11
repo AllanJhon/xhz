@@ -3,6 +3,7 @@ package com.sjz.zyl.appdemo.ui;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Message;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -473,7 +474,17 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         @Override
         public void onClick(View v) {
             String tempTag = (String) v.getTag();
-            v.setBackgroundColor(getColor(R.color.click));
+            if(Build.VERSION.SDK_INT <23)
+            {
+
+                v.setBackgroundColor(getResources().getColor(R.color.click));
+            }
+            else
+            {
+
+                v.setBackgroundColor(getColor(R.color.click));
+            }
+
             if (rel == null) {
                 rel = (RelativeLayout) tableLayout.findViewWithTag(tag);
                 expand(rel, position);

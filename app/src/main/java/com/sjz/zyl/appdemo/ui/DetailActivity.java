@@ -74,6 +74,8 @@ public class DetailActivity extends KJActivity implements OnClickListener{
 
         if(!"null".equals(article.getLocation())) {
             location.setText(article.getLocation());
+        }else{
+            location.setVisibility(View.GONE);
         }
         search.setVisibility(View.GONE);
         if (!"".equals(article.getArticleLogo())) {
@@ -82,7 +84,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
         }else{
             image_main.setVisibility(View.GONE);
         }
-        if(!"".equals(article.getArticleTitle())&&article.getArticleTitle()!=null)
+        if(!"null".equals(article.getArticleTitle())&&article.getArticleTitle()!=null)
 //        mTitleTextView.setText(article.getArticleTitle());
             article_title.setText(article.getArticleTitle());
         else

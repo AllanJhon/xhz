@@ -26,7 +26,7 @@ public class AppConfig {
     public static final String httpCachePath = saveFolder + "/httpCache";
     public static final String audioPath = saveFolder + "/audio";
 
-    public static final String root_path="http://47.104.86.18/";
+    public static final String root_path="https://xhznew.com/";
     public static final String image_path="http://sj-xhz.oss-cn-qingdao.aliyuncs.com/";
     public static final String CACHE_TIME_KEY = "cache_time_key";
 

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,9 +25,12 @@ import com.amap.api.maps2d.AMap.InfoWindowAdapter;
 import com.amap.api.maps2d.AMap.OnInfoWindowClickListener;
 import com.amap.api.maps2d.AMap.OnMapClickListener;
 import com.amap.api.maps2d.AMap.OnMarkerClickListener;
+import com.amap.api.maps2d.CameraUpdate;
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.CameraPosition;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
@@ -48,6 +52,8 @@ import com.amap.api.services.route.WalkRouteResult;
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.utils.AMapUtil;
 import com.sjz.zyl.appdemo.utils.ToastUtil;
+
+import org.kymjs.kjframe.ui.ViewInject;
 
 
 public class RouteActivity extends Activity implements OnMapClickListener,
@@ -83,6 +89,7 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 	private float lat;
 	private float lng;
 	private LatLng latlng;
+	private String address;
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -93,6 +100,7 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 		Intent intent = getIntent();
 		lat= intent.getFloatExtra("lat", 39.91746f);
 		lng = intent.getFloatExtra("lng",116.396481f); // 没有输入值默认为0
+		address=intent.getStringExtra("lacation");
 		latlng= new LatLng(lat, lng);
 		mEndPoint=new LatLonPoint(lat,lng);
 		mEndPoint_bus=new LatLonPoint(lat,lng);
@@ -119,9 +127,23 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 
 		aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
 		aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-		aMap.addMarker(new MarkerOptions()
-		.position(latlng)
-		.icon(BitmapDescriptorFactory.fromResource(R.drawable.end)));
+//		Marker marker= aMap.addMarker(new MarkerOptions()
+//		.position(latlng)
+//		.icon(BitmapDescriptorFactory.fromResource(R.drawable.end)));
+//		marker.showInfoWindow();
+		MarkerOptions markerOption = new MarkerOptions().icon(BitmapDescriptorFactory
+				.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+				.position(latlng)
+//				.title("标题")
+				.snippet(address)
+				.draggable(true);
+		Marker	marker = aMap.addMarker(markerOption);
+		//改变可视区域为指定位置
+		//CameraPosition4个参数分别为位置，缩放级别，目标可视区域倾斜度，可视区域指向方向（正北逆时针算起，0-360）
+		CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(new CameraPosition(latlng,8,0,30));
+		aMap.moveCamera(cameraUpdate);//地图移向指定区域
+		marker.showInfoWindow();
+
 	}
 
 	/**
@@ -143,6 +165,11 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 		mBus = (ImageView)findViewById(R.id.route_bus);
 		mWalk = (ImageView)findViewById(R.id.route_walk);
 		mBusResultList = (ListView) findViewById(R.id.bus_result_list);
+
+		LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		if(!locManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			ViewInject.toast("请打开定位权限");
+		}
 	}
 
 	/**
@@ -450,7 +477,7 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 		if (mListener != null && amapLocation != null) {
 			if (amapLocation != null
 					&& amapLocation.getErrorCode() == 0) {
-				mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
+//				mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
 				mStartPoint_bus=new LatLonPoint(amapLocation.getLatitude(),amapLocation.getLongitude());
 				mStartPoint=new LatLonPoint(amapLocation.getLatitude(),amapLocation.getLongitude());
 			} else {

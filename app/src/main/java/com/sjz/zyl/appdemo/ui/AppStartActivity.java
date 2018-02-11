@@ -1,6 +1,11 @@
 package com.sjz.zyl.appdemo.ui;
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.PermissionChecker;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -21,6 +26,7 @@ import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.KJHttp;
 import org.kymjs.kjframe.http.HttpCallBack;
+import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.DensityUtils;
 import org.kymjs.kjframe.utils.KJLoger;
 import org.kymjs.kjframe.utils.PreferenceHelper;
@@ -50,7 +56,7 @@ public class AppStartActivity extends KJActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                jumpTo();
+                startLogin();
             }
 
             @Override
@@ -80,72 +86,50 @@ public class AppStartActivity extends KJActivity {
         finish();
     }
 
+    private void startLogin() {
+        if(hasLocationPermission()){
+            //  如果有这个权限  就去登陆
+            jumpTo();
+        }else{
+            //  否则去申请权限
+            applyPermission();
+        }
+
+        //  安卓6以后  都需要用户自己开启权限
+
+    }
+
+    private boolean hasLocationPermission() {
+        //  检查是否有写入权限
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PermissionChecker.PERMISSION_GRANTED;
+    }
+    private void applyPermission() {
+        //  申请权限
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+    }
+
+    /**
+     * 申请权限的回调
+     * @param requestCode
+     * @param permissions
+     * @param grantResults
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 0:
+                if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) {
+                    jumpTo();
+                } else {
+                    ViewInject.toast("获取定位权限失败！");
+                }
+                break;
+        }
+    }
     @Override
     public void initData(){
         kjdb= KJDB.create();
-//        if(kjdb.findAllByWhere(ArticleType.class,"ArticleTypeID = 1").size()== 0) {
-//            articleTypelist = new ArrayList<ArticleType>();
-//            ArticleType type1 = new ArticleType();
-//            type1.setArticleTypeID(1);
-//            type1.setArticleType("小河庄概况");
-//            articleTypelist.add(type1);
-//            kjdb.save(type1);
-//            ArticleType type2 = new ArticleType();
-//            type2.setArticleTypeID(2);
-//            type2.setArticleType("村民服务中心");
-//            articleTypelist.add(type2);
-//            kjdb.save(type2);
-//            ArticleType type3 = new ArticleType();
-//            type3.setArticleTypeID(3);
-//            type3.setArticleType("党政建设");
-//            articleTypelist.add(type3);
-//            kjdb.save(type3);
-//            ArticleType type4 = new ArticleType();
-//            type4.setArticleTypeID(4);
-//            type4.setArticleType("政策法规");
-//            articleTypelist.add(type4);
-//            kjdb.save(type4);
-//            ArticleType type5 = new ArticleType();
-//            type5.setArticleTypeID(5);
-//            type5.setArticleType("工业");
-//            articleTypelist.add(type5);
-//            kjdb.save(type5);
-//            ArticleType type6 = new ArticleType();
-//            type6.setArticleTypeID(6);
-//            type6.setArticleType("农业");
-//            articleTypelist.add(type6);
-//            kjdb.save(type6);
-//            ArticleType type7 = new ArticleType();
-//            type7.setArticleTypeID(7);
-//            type7.setArticleType("畜牧业");
-//            articleTypelist.add(type7);
-//            kjdb.save(type7);
-//            ArticleType type8 = new ArticleType();
-//            type8.setArticleTypeID(8);
-//            type8.setArticleType("教育");
-//            articleTypelist.add(type8);
-//            kjdb.save(type8);
-//            ArticleType type9 = new ArticleType();
-//            type9.setArticleTypeID(9);
-//            type9.setArticleType("精品旅游");
-//            articleTypelist.add(type9);
-//            kjdb.save(type9);
-//            ArticleType type10 = new ArticleType();
-//            type10.setArticleTypeID(10);
-//            type10.setArticleType("金融");
-//            articleTypelist.add(type10);
-//            kjdb.save(type10);
-//            ArticleType type11 = new ArticleType();
-//            type11.setArticleTypeID(11);
-//            type11.setArticleType("特色经济");
-//            articleTypelist.add(type11);
-//            kjdb.save(type11);
-//            ArticleType type12 = new ArticleType();
-//            type12.setArticleTypeID(12);
-//            type12.setArticleType("基础设施");
-//            articleTypelist.add(type12);
-//            kjdb.save(type12);
-//        }
         KJHttp kjh = new KJHttp();
 
         kjh.get(AppConfig.root_path+getAllDatas_path, null,
@@ -159,9 +143,10 @@ public class AppStartActivity extends KJActivity {
                                 JSONObject data=json.getJSONObject("data");
                                 Parser.getArriticleTypes(data.getString("ArticleTypes"));
                                 Parser.getCategories(data.getString("ArticleCategories"));
-                                Parser.getArticles(data.getString("Articles"));
                                 Parser.getNews(data.getString("News"));
                                 Parser.getDocuments(data.getString("Documents"));
+                                Parser.getArticles(data.getString("Articles"));
+
                             }
 //                           list= Parser.getCategories(json.optString("data"));
                         } catch (JSONException e) {
@@ -175,5 +160,6 @@ public class AppStartActivity extends KJActivity {
                         KJLoger.state(TAG, "onFailure: "+ errorNo+":"+strMsg);
                     }
                 });
+
     }
 }
