@@ -134,13 +134,13 @@ public class ArticleListActivity extends KJActivity{
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
-                    ViewInject.toast(search.getText()+"");
+//                    ViewInject.toast(search.getText()+"");
                     KJDB kjdb=KJDB.create();
                     List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleTitle like '%"+search.getText()+"%' and  ArticleCategoryID = "+id);
                     adapter.refresh(datas);
 
                 }
-                return false;
+                return true;
             }
         });
     }
