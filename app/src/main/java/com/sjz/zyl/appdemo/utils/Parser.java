@@ -55,7 +55,7 @@ public class Parser {
                 JSONObject obj = jsonArray.getJSONObject(i);
                 data.setArticleCategoryID(obj.optInt("ArticleCategoryID",1));
                 data.setArticleCategory(obj.optString("ArticleCategory","测试"));
-                data.setSequence(obj.optString("Sequence","测试"));
+                data.setSequence(obj.optInt("Sequence",1));
                 data.setArticleCategoryIcon(obj.optString("ArticleCategoryIcon","测试"));
                 data.setDisplayType(obj.optString("DisplayType","测试"));
                 data.setArticleTypeID(obj.optInt("ArticleTypeID",1));
@@ -92,7 +92,7 @@ public class Parser {
             for (int i = 0; i < jsonArray.length(); i++) {
                 ArticleType data = new ArticleType();
                 JSONObject obj = jsonArray.getJSONObject(i);
-                data.setSequence(obj.optString("Sequence","测试"));
+                data.setSequence(obj.optInt("Sequence",1));
                 data.setArticleTypeID(obj.optInt("ArticleTypeID",1));
                 data.setArticleType(obj.optString("ArticleType","测试"));
                 data.setTypeIconURL(obj.optString("TypeIconURL","测试"));
