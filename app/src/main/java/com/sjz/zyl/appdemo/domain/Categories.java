@@ -31,7 +31,7 @@ public class Categories {
     private int id;
     private int ArticleCategoryID; //
     private String ArticleCategory; //
-    private String Sequence; //
+    private int Sequence; //
     private String ArticleCategoryIcon; //
     private String DisplayType; //
     private int ArticleTypeID; //
@@ -63,11 +63,11 @@ public class Categories {
         ArticleCategory = articleCategory;
     }
 
-    public String getSequence() {
+    public int getSequence() {
         return Sequence;
     }
 
-    public void setSequence(String sequence) {
+    public void setSequence(int sequence) {
         Sequence = sequence;
     }
 
