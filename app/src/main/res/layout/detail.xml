@@ -59,7 +59,8 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="left"
                     android:layout_marginTop="30px"
-                    android:drawableLeft="@drawable/poi_marker_pressed"
+                    android:drawableLeft="@drawable/location"
+                    android:drawablePadding="10dp"
                     android:gravity="center_horizontal"
                     android:textColor="#2d2b2b" />
 
