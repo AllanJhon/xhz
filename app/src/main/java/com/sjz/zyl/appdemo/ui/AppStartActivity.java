@@ -25,11 +25,14 @@ import org.json.JSONObject;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.KJHttp;
+import org.kymjs.kjframe.http.Cache;
 import org.kymjs.kjframe.http.HttpCallBack;
+import org.kymjs.kjframe.http.HttpConfig;
 import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.DensityUtils;
 import org.kymjs.kjframe.utils.KJLoger;
 import org.kymjs.kjframe.utils.PreferenceHelper;
+import org.kymjs.kjframe.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,11 +104,12 @@ public class AppStartActivity extends KJActivity {
 
     private boolean hasLocationPermission() {
         //  检查是否有写入权限
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)== PermissionChecker.PERMISSION_GRANTED;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)== PermissionChecker.PERMISSION_GRANTED;
     }
     private void applyPermission() {
         //  申请权限
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+
     }
 
     /**
@@ -119,10 +123,10 @@ public class AppStartActivity extends KJActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case 0:
-                if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED) {
+                if (grantResults[0] == PermissionChecker.PERMISSION_GRANTED&&grantResults[1] == PermissionChecker.PERMISSION_GRANTED) {
                     jumpTo();
                 } else {
-                    ViewInject.toast("获取定位权限失败！");
+                    ViewInject.toast("获取权限失败！");
                 }
                 break;
         }
@@ -130,8 +134,17 @@ public class AppStartActivity extends KJActivity {
     @Override
     public void initData(){
         kjdb= KJDB.create();
-        KJHttp kjh = new KJHttp();
-
+        HttpConfig config = new HttpConfig();
+        int hour = StringUtils.toInt(StringUtils.getDataTime("HH"), 0);
+        if (hour > 12 && hour < 22) {
+            config.cacheTime = 10;
+        } else {
+            config.cacheTime = 300;
+        }
+        config.useDelayCache = true;
+       KJHttp kjh = new KJHttp(config);
+      String cache = kjh.getStringCache(AppConfig.root_path+getAllDatas_path);
+        if (StringUtils.isEmpty(cache))
         kjh.get(AppConfig.root_path+getAllDatas_path, null,
                 new HttpCallBack() {
                     @Override

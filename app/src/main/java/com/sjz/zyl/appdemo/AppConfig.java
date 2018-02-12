@@ -24,6 +24,7 @@ package com.sjz.zyl.appdemo;
 public class AppConfig {
     public static final String saveFolder = "WisdomVillage";
     public static final String httpCachePath = saveFolder + "/httpCache";
+    public static final String iamgeCachePath = saveFolder + "/imageCache/";
     public static final String audioPath = saveFolder + "/audio";
 
     public static final String root_path="https://xhznew.com/";

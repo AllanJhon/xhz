@@ -2,6 +2,7 @@ package com.sjz.zyl.appdemo.ui;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
@@ -56,6 +57,10 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     private Button mForwardButton;
     @BindView(id=R.id.image1)
     private ImageView image_main;
+    @BindView(id=R.id.tel)
+    private TextView tel_tv;
+    @BindView(id=R.id.tel_text)
+    private TextView tel_text;
     private String tp_title;
     private FrameLayout mContentLayout;
 
@@ -78,6 +83,23 @@ public class DetailActivity extends KJActivity implements OnClickListener{
             location.setVisibility(View.GONE);
         }
         search.setVisibility(View.GONE);
+
+
+        if(!"null".equals(article.getMobile())) {
+            tel_tv.setText(article.getMobile());
+            tel_tv.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    Uri data = Uri.parse("tel:" + article.getMobile());
+                    intent.setData(data);
+                    startActivity(intent);
+                }
+            });
+        }else{
+            tel_tv.setVisibility(View.GONE);
+            tel_text.setVisibility(View.GONE);
+        }
         if (!"".equals(article.getArticleLogo())) {
             KJBitmap kjBitmap = new KJBitmap();
             kjBitmap.display(image_main, Parser.getUrl(article.getArticleLogo()));

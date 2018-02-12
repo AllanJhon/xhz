@@ -1,10 +1,12 @@
 package com.sjz.zyl.appdemo.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -133,12 +135,24 @@ public class ArticleListActivity extends KJActivity{
         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+                ViewInject.toast(""+actionId);
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    ((InputMethodManager) search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
+                            .hideSoftInputFromWindow(
+                                    getWindow()
+                                            .getCurrentFocus()
+                                            .getWindowToken(),
+                                    InputMethodManager.HIDE_NOT_ALWAYS);
 //                    ViewInject.toast(search.getText()+"");
                     KJDB kjdb=KJDB.create();
                     List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleTitle like '%"+search.getText()+"%' and  ArticleCategoryID = "+id);
-                    adapter.refresh(datas);
-
+//                    adapter.refresh(datas);
+                    if(datas.size()>0){
+                        adapter.refresh(datas);
+                    }else{
+                            mEmptyLayout.setVisibility(View.VISIBLE);
+                            mEmptyLayout.setErrorType(EmptyLayout.NODATA);
+                    }
                 }
                 return true;
             }
@@ -148,7 +162,6 @@ public class ArticleListActivity extends KJActivity{
         KJDB kjdb=KJDB.create();
        List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleCategoryID = "+id);
         if(datas.size()>0){
-
             adapter = new ArticleAdapter(mList, datas);
             mList.setAdapter(adapter);
             mEmptyLayout.dismiss();

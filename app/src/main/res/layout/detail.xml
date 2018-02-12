@@ -47,7 +47,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="0.16"
                 android:orientation="horizontal"
                 android:padding="10dp"
@@ -55,32 +55,37 @@
 
                 <TextView
                     android:id="@+id/location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:layout_marginTop="30px"
+                    android:singleLine="false"
                     android:drawableLeft="@drawable/poi_marker_pressed"
                     android:gravity="center_horizontal"
                     android:textColor="#2d2b2b" />
 
-                <!--<TextView-->
-                    <!--android:layout_width="94dp"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="right"-->
-                    <!--android:layout_marginTop="30px"-->
-                    <!--android:layout_weight="0.85"-->
-                    <!--android:gravity="right"-->
-                    <!--android:text="邮编："-->
-                    <!--android:textColor="#2d2b2b" />-->
+               <TextView
+                   android:id="@+id/tel_text"
+                    android:layout_width="94dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="30px"
+                    android:layout_weight="0.85"
+                    android:gravity="right"
+                    android:text="Tel:"
+                    android:textColor="#2d2b2b" />
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="right"-->
-                    <!--android:layout_marginTop="30px"-->
-                    <!--android:gravity="right"-->
-                    <!--android:text="050000"-->
-                    <!--android:textColor="#2d2b2b" />-->
+                <TextView
+                    android:id="@+id/tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="30px"
+                    android:singleLine="false"
+                    android:autoLink="all"
+                    android:gravity="right"
+                    android:text="050000"
+                    android:textColor="#2d2b2b" />
             </LinearLayout>
 
             <TextView
@@ -90,19 +95,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="0.25"
-
                 android:gravity="left"
-                android:text="一个位于冀中平原上的普通村庄——小河庄，经过
-
-    20年的探索与实践，在一片贫瘠的盐碱地上建成了小有
-
-    名气的富裕型小康村，也开辟了一条中国农村由贫穷走
-
-    向富裕的成功之路。当改革开放的大潮又再次涨起时，
-
-    这里的人民不失时机的摇起了自己的战船，吹晌号角，
-
-    开辟了“中国电线电缆第一庄”，又一次实现了新的跨越！"
+                android:text=""
                 android:textColor="#2d2b2b"></TextView>
             <!--<TextView-->
             <!--android:layout_width="wrap_content"-->

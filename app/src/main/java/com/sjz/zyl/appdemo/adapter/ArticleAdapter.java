@@ -12,6 +12,7 @@ import com.sjz.zyl.appdemo.ui.DetailActivity;
 import com.sjz.zyl.appdemo.utils.Parser;
 
 import org.kymjs.kjframe.KJBitmap;
+import org.kymjs.kjframe.bitmap.BitmapConfig;
 import org.kymjs.kjframe.utils.StringUtils;
 import org.kymjs.kjframe.widget.AdapterHolder;
 import org.kymjs.kjframe.widget.KJAdapter;
@@ -25,7 +26,7 @@ import java.util.List;
  * @since 2015-3
  */
 public class ArticleAdapter extends KJAdapter<Article> {
-    private final KJBitmap kjb = new KJBitmap();
+    private final KJBitmap kjb = new KJBitmap(new BitmapConfig());
 
     public ArticleAdapter(AbsListView view, List<Article> mDatas) {
         super(view, mDatas, R.layout.list_view_item);

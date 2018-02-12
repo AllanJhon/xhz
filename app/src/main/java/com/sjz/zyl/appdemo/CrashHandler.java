@@ -42,7 +42,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 public class CrashHandler implements UncaughtExceptionHandler {
     private final Context mContext;
     // log文件的后缀名
-    public static final String FILE_NAME_SUFFIX = "KJBlog.log";
+    public static final String FILE_NAME_SUFFIX = "Xhz.log";
     private static CrashHandler sInstance = null;
 
     private CrashHandler(Context cxt) {

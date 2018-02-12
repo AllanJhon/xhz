@@ -63,7 +63,7 @@ public class Parser {
                 data.setCategoryIconURL(obj.optString("CategoryIconURL","测试"));
                 data.setTypeIconURL(obj.optString("TypeIconURL","测试"));
 
-                List<Categories> datas1 = jkdb.findAllByWhere(Categories.class,"ArticleCategoryID = "+obj.optString("ArticleCategoryID"));
+                List<Categories> datas1 = jkdb.findAllByWhere(Categories.class,"ArticleCategoryID = "+obj.optInt("ArticleCategoryID"));
                 if(jkdb.findAllByWhere(Categories.class,"ArticleCategoryID = "+obj.optString("ArticleCategoryID")).size()>0)
 //                    jkdb.update(data);
                 jkdb.update(data,"ArticleCategoryID = "+obj.optString("ArticleCategoryID"));

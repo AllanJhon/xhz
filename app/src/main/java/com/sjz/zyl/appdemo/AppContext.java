@@ -17,6 +17,8 @@ package com.sjz.zyl.appdemo;
 
 import android.app.Application;
 
+import com.sjz.zyl.appdemo.utils.MyImageCache;
+
 import org.kymjs.kjframe.bitmap.BitmapConfig;
 import org.kymjs.kjframe.http.HttpConfig;
 
@@ -33,6 +35,7 @@ public class AppContext extends Application {
     public void onCreate() {
         super.onCreate();
         HttpConfig.CACHEPATH = AppConfig.httpCachePath;
-        CrashHandler.create(this);
+        BitmapConfig.mMemoryCache=new MyImageCache();
+//        CrashHandler.create(this);
     }
 }

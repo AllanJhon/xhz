@@ -14,6 +14,7 @@ import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
 
 import org.kymjs.kjframe.KJBitmap;
+import org.kymjs.kjframe.bitmap.BitmapConfig;
 
 /**
  * Created by admin on 2018/1/27.
@@ -71,7 +72,7 @@ public class MyRowItemView extends LinearLayout{
     }
 
     public void setImageView(String url){
-        KJBitmap kjb = new KJBitmap();
+        KJBitmap kjb = new KJBitmap(new BitmapConfig());
 
         if(kjb.getMemoryCache(url)!=null){
             kjb.displayCacheOrDefult(imageView,

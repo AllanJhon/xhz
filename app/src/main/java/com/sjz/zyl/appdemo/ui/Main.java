@@ -183,12 +183,19 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
     private ImageViewPlus getImageView(String resId) {
         ImageViewPlus image = new ImageViewPlus(this, null);
         KJBitmap kjb = new KJBitmap(new BitmapConfig());
-        if(!"".equals(resId)) {
-            kjb.display(image,
-                    resId);
-        }else{
+//        if(!"".equals(resId)) {
+//            kjb.display(image,
+//                    resId);
+//        }else{
+//            kjb.displayCacheOrDefult(image,
+//                    resId,R.drawable.finance);
+//        }
+        if(kjb.getMemoryCache(resId)!=null){
             kjb.displayCacheOrDefult(image,
                     resId,R.drawable.finance);
+        }else {
+            kjb.displayLoadAndErrorBitmap(image,
+                    resId,R.drawable.loading,R.drawable.app_logo);
         }
         return image;
     }
@@ -384,7 +391,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
                 if (i == 0) {
                     list = xhzCategories.getArticleType().get(location).getCategoriesList();
                 } else if (n < i) {
-                    // 每一个 表只有3列 最多 4行 每个表最多12个
+                    // 每一个 表只有4列 最多 3行 每个表最多12个
                     list = xhzCategories.getArticleType().get(location).getCategoriesList().subList((n - 1) * 12, n * 12);
                 } else {
                     int size = xhzCategories.getArticleType().get(location).getCategoriesList().size();
@@ -533,7 +540,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             setResult(RESULT_OK, intent);
             startActivity(intent);
         }else if(articleList.size()==0){
-            ViewInject.toast("该分类下无文章！");
+            ViewInject.toast("该分类"+dataId+"下无文章！");
         }else if(displayType.equals("1")){
             Intent intent = new Intent(Main.this, ArticleListActivity.class);
             intent.putExtra("id", dataId);

@@ -70,7 +70,7 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 	private LatLonPoint mEndPoint = new LatLonPoint(39.995576, 116.481288);//终点，116.481288,39.995576
 	private LatLonPoint mStartPoint_bus = new LatLonPoint(40.818311, 111.670801);//起点，111.670801,40.818311
 	private LatLonPoint mEndPoint_bus = new LatLonPoint(44.433942, 125.184449);//终点，
-	private String mCurrentCityName = "石家庄       ";
+	private String mCurrentCityName = "石家庄";
 	private final int ROUTE_TYPE_BUS = 1;
 	private final int ROUTE_TYPE_DRIVE = 2;
 	private final int ROUTE_TYPE_WALK = 3;
@@ -90,6 +90,7 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 	private float lng;
 	private LatLng latlng;
 	private String address;
+//	private Boolean flag;
 	@Override
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
@@ -124,7 +125,6 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 		aMap.addMarker(new MarkerOptions());
 		aMap.setMyLocationStyle(myLocationStyle);
 		aMap.setLocationSource(this);// 设置定位监听
-
 		aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
 		aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
 //		Marker marker= aMap.addMarker(new MarkerOptions()
@@ -477,7 +477,7 @@ public class RouteActivity extends Activity implements OnMapClickListener,
 		if (mListener != null && amapLocation != null) {
 			if (amapLocation != null
 					&& amapLocation.getErrorCode() == 0) {
-//				mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
+				mListener.onLocationChanged(amapLocation);// 显示系统小蓝点
 				mStartPoint_bus=new LatLonPoint(amapLocation.getLatitude(),amapLocation.getLongitude());
 				mStartPoint=new LatLonPoint(amapLocation.getLatitude(),amapLocation.getLongitude());
 			} else {

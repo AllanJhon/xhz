@@ -1,6 +1,10 @@
 package com.sjz.zyl.appdemo.utils;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -31,10 +35,10 @@ public class Utils {
 //        kjdb.deleteById(Categories.class,27);
         List<XhzCategories> xhzCategoriesArrayList=new ArrayList<XhzCategories>();
         XhzCategories XhzCategories=new XhzCategories(0,"类别");
-        List<ArticleType> articleTypeList=kjdb.findAll(ArticleType.class,"ArticleTypeID");
+        List<ArticleType> articleTypeList=kjdb.findAll(ArticleType.class," Sequence");
         for (int i=0;i<articleTypeList.size();i++){
             ArticleType articleType=articleTypeList.get(i);
-            List<Categories> categoriesList=kjdb.findAllByWhere(Categories.class,"ArticleTypeID = "+articleType.getArticleTypeID());
+            List<Categories> categoriesList=kjdb.findAllByWhere(Categories.class,"ArticleTypeID = "+articleType.getArticleTypeID()," Sequence");
             articleType.setCategoriesList(categoriesList);
         }
         XhzCategories.setArticleType(articleTypeList);
@@ -50,7 +54,7 @@ public class Utils {
         List<News> newsList_return=new ArrayList<News>() ;
         newsList = kjdb.findAll(News.class);
         if (newsList.size() >= 3){
-            newsList_return = newsList.subList(0, 2);
+            newsList_return = newsList.subList(0, 3);
         }else if(newsList.size()>0){
             newsList_return = newsList.subList(0, newsList.size());
         }
@@ -87,4 +91,22 @@ public class Utils {
 
         return result;
     }
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+    public static void verifyStoragePermissions(Activity activity) {
+// Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+// We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+    }
+
 }

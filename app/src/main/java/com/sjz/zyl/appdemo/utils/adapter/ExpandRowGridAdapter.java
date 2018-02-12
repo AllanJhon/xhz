@@ -9,10 +9,13 @@ import com.sjz.zyl.appdemo.AppConfig;
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
 import com.sjz.zyl.appdemo.domain.Categories;
+import com.sjz.zyl.appdemo.utils.MyImageCache;
 import com.sjz.zyl.appdemo.utils.Parser;
 
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.bitmap.BitmapConfig;
+import org.kymjs.kjframe.bitmap.ImageDisplayer;
+import org.kymjs.kjframe.ui.BindView;
 
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class ExpandRowGridAdapter extends CommonAdapter<Categories> {
         View view = helper.getView(R.id.rowLiner);
         view.setBackgroundColor(view.getResources().getColor(R.color.click));
         ImageView imageView=(ImageView) view.findViewById(R.id.img);
+        BitmapConfig.mMemoryCache=new MyImageCache();
         KJBitmap kjb = new KJBitmap(new BitmapConfig());
 //        kjb.displayLoadAndErrorBitmap(imageView,
 //                Parser.getUrl(item.getArticleCategoryIcon()),R.drawable.loading,R.drawable.app_logo);
