@@ -9,7 +9,7 @@
     <Button
         android:id="@+id/button_backward"
         android:layout_width="18dp"
-        android:layout_height="30dp"
+        android:layout_height="25dp"
         android:layout_marginLeft="10dp"
         android:background="@drawable/back" />
 
@@ -18,27 +18,27 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="电线电缆企业"
+        android:text="主页"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginLeft="10dp"
+        android:layout_weight="1"
         android:typeface="monospace" />
 
     <EditText
         android:id="@+id/search"
         android:layout_alignParentRight="true"
         android:background="@drawable/edit_text_shape"
-        android:layout_width="match_parent"
+        android:layout_width="220dp"
         android:layout_height="match_parent"
         android:gravity="left|center_vertical"
         android:layout_margin="10dp"
         android:drawableLeft="@drawable/search"
-        android:drawablePadding="5dp"
+        android:drawablePadding="10dp"
         android:textColor="@color/black"
-        android:radius="100dp"
         android:singleLine="true"
-        android:hint="搜索"
+        android:radius="100dp"
         android:imeOptions="actionSearch"
         android:textSize="16sp" />
 

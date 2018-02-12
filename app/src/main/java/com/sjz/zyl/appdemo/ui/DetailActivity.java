@@ -59,8 +59,8 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     private ImageView image_main;
     @BindView(id=R.id.tel)
     private TextView tel_tv;
-    @BindView(id=R.id.tel_text)
-    private TextView tel_text;
+//    @BindView(id=R.id.tel_text)
+//    private TextView tel_text;
     private String tp_title;
     private FrameLayout mContentLayout;
 
@@ -98,7 +98,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
             });
         }else{
             tel_tv.setVisibility(View.GONE);
-            tel_text.setVisibility(View.GONE);
+//            tel_text.setVisibility(View.GONE);
         }
         if (!"".equals(article.getArticleLogo())) {
             KJBitmap kjBitmap = new KJBitmap();
