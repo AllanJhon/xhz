@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll"
     android:layout_width="match_parent"
     android:layout_height="48dp"
@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/left_button"
-        android:layout_width="120dp"
+        android:layout_width="100dp"
         android:layout_marginLeft="10dp"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:background="@drawable/logo"
         android:textColor="#FFFFFF" />
 
@@ -27,4 +28,4 @@
         <!--android:radius="100dp"-->
         <!--android:textSize="16sp" />-->
 
-</LinearLayout>
+</RelativeLayout>

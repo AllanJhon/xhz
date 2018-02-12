@@ -33,6 +33,8 @@
         android:layout_height="match_parent"
         android:gravity="left|center_vertical"
         android:layout_margin="10dp"
+        android:drawableLeft="@drawable/search"
+        android:drawablePadding="5dp"
         android:textColor="@color/black"
         android:radius="100dp"
         android:singleLine="true"
