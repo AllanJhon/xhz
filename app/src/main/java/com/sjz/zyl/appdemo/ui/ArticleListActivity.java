@@ -135,7 +135,7 @@ public class ArticleListActivity extends KJActivity{
         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                ViewInject.toast(""+actionId);
+//                ViewInject.toast(""+actionId);
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                     ((InputMethodManager) search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE))
                             .hideSoftInputFromWindow(
@@ -147,9 +147,13 @@ public class ArticleListActivity extends KJActivity{
                     KJDB kjdb=KJDB.create();
                     List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleTitle like '%"+search.getText()+"%' and  ArticleCategoryID = "+id);
 //                    adapter.refresh(datas);
+//
                     if(datas.size()>0){
                         adapter.refresh(datas);
+                        mEmptyLayout.setVisibility(View.GONE);
+                        mList.setVisibility(View.VISIBLE);
                     }else{
+                        mList.setVisibility(View.GONE);
                             mEmptyLayout.setVisibility(View.VISIBLE);
                             mEmptyLayout.setErrorType(EmptyLayout.NODATA);
                     }

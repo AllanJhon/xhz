@@ -64,9 +64,9 @@ public class Parser {
                 data.setTypeIconURL(obj.optString("TypeIconURL","测试"));
 
                 List<Categories> datas1 = jkdb.findAllByWhere(Categories.class,"ArticleCategoryID = "+obj.optInt("ArticleCategoryID"));
-                if(jkdb.findAllByWhere(Categories.class,"ArticleCategoryID = "+obj.optString("ArticleCategoryID")).size()>0)
+                if(jkdb.findAllByWhere(Categories.class,"ArticleCategoryID = "+obj.optInt("ArticleCategoryID")).size()>0)
 //                    jkdb.update(data);
-                jkdb.update(data,"ArticleCategoryID = "+obj.optString("ArticleCategoryID"));
+                jkdb.update(data,"ArticleCategoryID = "+obj.optInt("ArticleCategoryID"));
                 else
                     jkdb.save(data);
                 datas.add(data);
@@ -227,7 +227,7 @@ public class Parser {
             url=jkdb.findById(DocumentId,Documents.class).getDocumentURL();
             Log.e("xhz", "url: "+url);
         } catch (Exception e) {
-            Log.e("xhz", "getDocuments()解析异常");
+            Log.e("xhz", "getUrl()解析异常");
         }
 
         return url;
