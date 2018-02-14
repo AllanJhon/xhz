@@ -43,9 +43,9 @@ public class ArticleAdapter extends KJAdapter<Article> {
             image.setVisibility(View.VISIBLE);
             onPicClick(image, item);
             if (isScrolling) {
-                kjb.displayCacheOrDefult(image, url, R.drawable.main_1);
+                kjb.displayCacheOrDefult(image, url, R.drawable.loading);
             } else {
-                kjb.display(image, url, 480, 420, R.drawable.main_1);
+                kjb.display(image, url, 480, 420, R.drawable.loading);
             }
         }
         helper.setText(R.id.article_phoneTv, item.getArticleTitle());

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -36,11 +37,13 @@ import com.sjz.zyl.appdemo.utils.view.CurrenPositionView;
 import com.sjz.zyl.appdemo.utils.view.MyRowItemView;
 import com.sjz.zyl.appdemo.utils.view.MyTextView;
 import com.sjz.zyl.appdemo.widget.ImageViewPlus;
+import com.sjz.zyl.appdemo.widget.RowItem;
 
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.bitmap.BitmapConfig;
+import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.KJLoger;
 
@@ -82,6 +85,8 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
     private LinearLayout currenPositionLinear;
     private final Integer duration = 200;
     private RelativeLayout rel;
+    @BindView(id=R.id.news_title)
+    private TextView news_title;
     private String itemId;
     //记录点击位置
     private String clickPosition = "";
@@ -99,6 +104,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         setContentView(R.layout.activity_main);
         flipper = (ViewFlipper) findViewById(R.id.flipper);
         linearLayout = (LinearLayout) findViewById(R.id.show_dot);
+        news_title=(TextView)findViewById(R.id.news_title);
         initData();
 
         /*
@@ -139,6 +145,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             flipper.setBackgroundColor(Color.TRANSPARENT);
             mDotList.add(v);
         }
+
         initView();
         sendMes();
 
@@ -177,19 +184,12 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         Message msgs = new Message();
         msgs.what = AUTO;
         //发送延迟消息，做到轮播的效果
-        mHandler.sendMessageDelayed(msgs, 2000);
+        mHandler.sendMessageDelayed(msgs, 5000);
     }
 
     private ImageViewPlus getImageView(String resId) {
         ImageViewPlus image = new ImageViewPlus(this, null);
         KJBitmap kjb = new KJBitmap(new BitmapConfig());
-//        if(!"".equals(resId)) {
-//            kjb.display(image,
-//                    resId);
-//        }else{
-//            kjb.displayCacheOrDefult(image,
-//                    resId,R.drawable.finance);
-//        }
         if(kjb.getMemoryCache(resId)!=null){
             kjb.displayCacheOrDefult(image,
                     resId,R.drawable.finance);
@@ -230,10 +230,12 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         int current = flipper.getDisplayedChild();
         if (current == 0) {
             mDotList.get(NUM - 1).setBackgroundResource(R.drawable.dot_normal);
+
         } else {
             mDotList.get(current - 1).setBackgroundResource(R.drawable.dot_normal);
         }
         mDotList.get(current).setBackgroundResource(R.drawable.dot_focus);
+        news_title.setText(newses.get(current).getNewsTitle());
     }
 
     /**
@@ -250,6 +252,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             mDotList.get(current + 1).setBackgroundResource(R.drawable.dot_normal);
         }
         mDotList.get(current).setBackgroundResource(R.drawable.dot_focus);
+        news_title.setText(newses.get(current).getNewsTitle());
     }
 
     private void initView() {
@@ -259,8 +262,10 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             XhzCategories xhzCategories = data.get(num);
             CurrenPositionView currenPositionView = new CurrenPositionView(this);
             currenPositionView.setData(xhzCategories);
+
             currenPositionView.setViewId(num);
             currenPositionView.init();
+
             if (num > 0) {
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
@@ -275,19 +280,20 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         }
 
         //新闻图片点击时间
-        currenPositionLinear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int current = flipper.getDisplayedChild();
-//                Toast.makeText(getApplicationContext(),"点击了"+newses.get(current).getNewsID(),Toast.LENGTH_SHORT);
-//                ViewInject.toast(newses.get(current).getNewsID()+"");
-                Intent intent = new Intent(Main.this, NewsActivity.class);
-                intent.putExtra("id", newses.get(current).getNewsID());
-                intent.putExtra("value", newses.get(current).getNewsTitle());
-                setResult(RESULT_OK, intent);
-                startActivity(intent);
-            }
-        });
+//        currenPositionLinear.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int current = flipper.getDisplayedChild();
+////                Toast.makeText(getApplicationContext(),"点击了"+newses.get(current).getNewsID(),Toast.LENGTH_SHORT);
+////                ViewInject.toast(newses.get(current).getNewsID()+"");
+//                Intent intent = new Intent(Main.this, NewsActivity.class);
+//                intent.putExtra("id", newses.get(current).getNewsID());
+//                intent.putExtra("value", newses.get(current).getNewsTitle());
+//                setResult(RESULT_OK, intent);
+//                startActivity(intent);
+//            }
+//        });
+
     }
 
     public void initData() {
@@ -302,7 +308,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         }
     }
 
-    public class OnItemClick implements View.OnClickListener, ViewPager.OnPageChangeListener {
+    public class OnRowItemClick implements View.OnClickListener, ViewPager.OnPageChangeListener {
         private final int position;
         private final int tag;
         //        private final MyTextView view;
@@ -310,7 +316,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         private final TableLayout tableLayout;
         private final XhzCategories xhzCategories;
 
-        public OnItemClick(XhzCategories xhzCategories, int position, int tag, TableLayout table, MyTextView view) {
+        public OnRowItemClick(XhzCategories xhzCategories, int position, int tag, TableLayout table, MyTextView view) {
             this.position = position;
             this.tag = tag;
 //            this.view = view;
@@ -319,7 +325,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             this.xhzCategories = xhzCategories;
         }
 
-        public OnItemClick(XhzCategories xhzCategories, int position, int tag, TableLayout table, MyRowItemView view) {
+        public OnRowItemClick(XhzCategories xhzCategories, int position, int tag, TableLayout table, MyRowItemView view) {
             this.position = position;
             this.tag = tag;
 //            this.view = null;
@@ -386,7 +392,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             // View的 初始化
             for (int n = 1; n <= i; n++) {
                 View view = LayoutInflater.from(Main.this).inflate(R.layout.viewpager_child, null);
-                GridView grid = (GridView) view.findViewById(R.id.expand_grid);
+                RowItem grid = (RowItem) view.findViewById(R.id.expand_grid);
                 // 计算每个 gridview 存放多少数据
                 if (i == 0) {
                     list = xhzCategories.getArticleType().get(location).getCategoriesList();
@@ -397,7 +403,8 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
                     int size = xhzCategories.getArticleType().get(location).getCategoriesList().size();
                     list = xhzCategories.getArticleType().get(location).getCategoriesList().subList((n - 1) * 12, size);
                 }
-                ExpandRowGridAdapter ea = new ExpandRowGridAdapter(Main.this, list, R.layout.row_item_view);
+//                ViewInject.toast("zhang");
+                ExpandRowGridAdapter ea = new ExpandRowGridAdapter( list,Main.this);
                 ea.setOnClick(listener);
                 grid.setAdapter(ea);
                 views.add(grid);
@@ -415,7 +422,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             MyViewPagerAdapter mpa = new MyViewPagerAdapter(views);
             // 宽度每一个格高度 42dp 转成px
 //            int height = (int) (Main.this.getResources().getDisplayMetrics().density * 47 + 0.1f);
-            int height = (int) (Main.this.getResources().getDisplayMetrics().density * 90 + 0.1f);
+            int height = (int) (Main.this.getResources().getDisplayMetrics().density * 80 + 0.1f);
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, row * height);
             pager.setLayoutParams(params);
             pager.setAdapter(mpa);
@@ -495,6 +502,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             if (rel == null) {
                 rel = (RelativeLayout) tableLayout.findViewWithTag(tag);
                 expand(rel, position);
+                rel.setVisibility(View.VISIBLE);
                 myRowItemView.isDraw(true);
             } else {
                 if (rel.getVisibility() == View.VISIBLE) {

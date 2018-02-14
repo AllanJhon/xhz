@@ -3,6 +3,7 @@ package com.sjz.zyl.appdemo.utils.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ public class MyRowItemView extends LinearLayout{
     private Boolean isDraw;
     private ImageView imageView;
     private TextView myTextView;
+    private Boolean isOnMeasure;
     private LinearLayout linearLayout;
     private Context mContext;
     public MyRowItemView(Context context) {
@@ -40,7 +42,7 @@ public class MyRowItemView extends LinearLayout{
 
     @Override
     protected void onDraw(Canvas canvas) {
-        this.setBackgroundResource(R.drawable.app_logo);
+//        this.setBackgroundResource(R.drawable.loading);
 //        canvas.drawColor(Color.WHITE);
 //        if (isDraw) {
 //            canvas.drawColor(Color.YELLOW);
@@ -85,6 +87,23 @@ public class MyRowItemView extends LinearLayout{
 
     public void setMyTextView(String str){
         myTextView.setText(str);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        Log.d("onMeasure", "onMeasure");
+        isOnMeasure = true;
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    public Boolean isOnMeasure(){
+        return isOnMeasure;
+    }
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        Log.d("onLayout", "onLayout");
+        isOnMeasure = false;
+        super.onLayout(changed, l, t, r, b);
     }
 
 }

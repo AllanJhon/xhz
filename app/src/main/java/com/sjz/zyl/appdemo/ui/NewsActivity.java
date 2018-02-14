@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
+import com.sjz.zyl.appdemo.domain.Documents;
 import com.sjz.zyl.appdemo.domain.News;
 import com.sjz.zyl.appdemo.ui.amap.RouteActivity;
 import com.sjz.zyl.appdemo.utils.Parser;
@@ -25,6 +26,8 @@ import com.sjz.zyl.appdemo.utils.Parser;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.KJDB;
+import org.kymjs.kjframe.database.DbModel;
+import org.kymjs.kjframe.database.utils.TableInfo;
 import org.kymjs.kjframe.ui.BindView;
 
 import java.net.URL;
@@ -130,7 +133,15 @@ public class NewsActivity extends KJActivity implements OnClickListener{
         super.initData();
         kjdb = KJDB.create();
         if(news==null) {
-            news = kjdb.findById(id, News.class);
+            TableInfo table = TableInfo.get(News.class);
+            news=new News();
+            DbModel dbModel=kjdb.findDbModelBySQL("select * from "+table.getTableName()+" where NewsID= "+id);
+            news.setNewsContent(dbModel.getString("NewsContent"));
+            news.setNewsID(dbModel.getInt("NewsID"));
+            news.setNewsLogo(dbModel.getString("NewsLogo"));
+            news.setAuthor(dbModel.getString("Author"));
+            news.setNewsTitle(dbModel.getString("NewsTitle"));
+            news.setReleaseDate(dbModel.getString("ReleaseDate"));
         }
     }
 

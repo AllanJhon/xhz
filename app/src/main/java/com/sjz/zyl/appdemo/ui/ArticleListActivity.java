@@ -104,13 +104,13 @@ public class ArticleListActivity extends KJActivity{
             @Override
             public void onPullDownToRefresh(
                     PullToRefreshBase<ListView> refreshView) {
-                refresh();
+//                refresh();
             }
 
             @Override
             public void onPullUpToRefresh(
                     PullToRefreshBase<ListView> refreshView) {
-                mRefreshLayout.setHasMoreData(false);
+//                mRefreshLayout.setHasMoreData(false);
             }
         });
         mBackwardbButton.setOnClickListener(new View.OnClickListener() {

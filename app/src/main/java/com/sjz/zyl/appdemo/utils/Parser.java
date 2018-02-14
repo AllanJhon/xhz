@@ -28,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.kymjs.kjframe.KJDB;
+import org.kymjs.kjframe.database.utils.TableInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -224,7 +225,8 @@ public class Parser {
         KJDB jkdb= KJDB.create();
         String url="";
         try {
-            url=jkdb.findById(DocumentId,Documents.class).getDocumentURL();
+            TableInfo table = TableInfo.get(Documents.class);
+            url=jkdb.findDbModelBySQL("select * from "+table.getTableName()+" where DocumentID= "+DocumentId).getString("DocumentURL");
             Log.e("xhz", "url: "+url);
         } catch (Exception e) {
             Log.e("xhz", "getUrl()解析异常");

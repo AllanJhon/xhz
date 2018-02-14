@@ -30,6 +30,7 @@ import java.util.List;
 public class ArticleType {
 
     @Id()
+    private int id;//
     private int ArticleTypeID; //
     private String ArticleType; //
     private String ArticleTypeIcon;
@@ -84,5 +85,13 @@ public class ArticleType {
 
     public void setArticleTypeIcon(String articleTypeIcon) {
         ArticleTypeIcon = articleTypeIcon;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

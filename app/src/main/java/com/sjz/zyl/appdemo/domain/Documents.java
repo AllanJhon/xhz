@@ -11,6 +11,7 @@ import org.kymjs.kjframe.database.annotate.Id;
 public class Documents {
 
     @Id()
+    private int id;
     private int DocumentID;
     private String DocumentURL;
     private String DocumentTitle;
@@ -37,5 +38,13 @@ public class Documents {
 
     public void setDocumentTitle(String documentTitle) {
         DocumentTitle = documentTitle;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

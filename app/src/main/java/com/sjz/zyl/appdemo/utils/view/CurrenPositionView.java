@@ -65,7 +65,7 @@ public class CurrenPositionView extends LinearLayout {
                 myRowItemView.setImageView(Parser.getUrl(data.getArticleType().get(location).getArticleTypeIcon()));
                 myRowItemView.setMyTextView(data.getArticleType().get(location).getArticleType());
                 myRowItemView.setTag("" + viewId + location);
-                myRowItemView.setOnClickListener(((Main) getContext()).new OnItemClick(data, location, n, tableLayout, myRowItemView));
+                myRowItemView.setOnClickListener(((Main) getContext()).new OnRowItemClick(data, location, n, tableLayout, myRowItemView));
                 row.addView(myRowItemView);
                 location++;
             }

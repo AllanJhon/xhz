@@ -11,12 +11,21 @@ import org.kymjs.kjframe.database.annotate.Id;
 public class News {
 
     @Id()
+    private int id;
     private int NewsID;
     private String NewsLogo;
     private String NewsTitle;
     private String NewsContent;
     private String Author;
     private String ReleaseDate;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public int getNewsID() {
         return NewsID;

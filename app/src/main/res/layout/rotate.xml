@@ -14,10 +14,10 @@
         android:layout_weight="1"
         android:layout_height="0px"
         android:orientation="vertical"
-        android:background="#ccc">
+        android:background="@color/transparent">
         <ViewFlipper
             android:id="@+id/flipper"
-            android:background="#00000000"
+            android:background="@color/transparent"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             ></ViewFlipper>
@@ -31,6 +31,7 @@
         </LinearLayout>//这里显示的小圆圈之间的切换
     </LinearLayout>
     <TextView
+        android:id="@+id/news_title"
         android:layout_width="fill_parent"
         android:layout_weight="0.15"
         android:layout_height="0px"

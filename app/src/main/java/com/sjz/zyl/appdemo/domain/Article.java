@@ -26,7 +26,9 @@ import java.io.Serializable;
  * @since 2018-01-25.
  */
 public class Article implements Serializable {
+
     @Id()
+    private int id;
     private int ArticleID; //
     private String ArticleLogo; //
     private String ArticleIcon; //
@@ -132,6 +134,15 @@ public class Article implements Serializable {
 //    public void setIsActive(String isActive) {
 //        IsActive = isActive;
 //    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getSequence() {
         return Sequence;
