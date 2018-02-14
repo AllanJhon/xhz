@@ -65,7 +65,7 @@ public class ExpandRowGridAdapter extends BaseAdapter{
      * @return
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
 //        ViewInject.toast(list.get(position).getArticleCategoryID()+"");
         //加载item布局 将xml布局加载到内存中，形成一个view
@@ -92,16 +92,16 @@ public class ExpandRowGridAdapter extends BaseAdapter{
             kjb.displayLoadAndErrorBitmap(imageView,
                     Parser.getUrl(list.get(position).getArticleCategoryIcon()),R.drawable.loading,R.drawable.app_logo);
         }
-//        imageView.setImageResource(R.drawable.economic);
-//        view.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (listener != null) {
-//                    listener.onClick(item.getArticleCategoryID(), item.getArticleCategory(),item.getDisplayType());
-//                }
-//
-//            }
-//        });
+        imageView.setImageResource(R.drawable.economic);
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onClick(list.get(position).getArticleCategoryID(), list.get(position).getArticleCategory(),list.get(position).getDisplayType());
+                }
+
+            }
+        });
         return view;
     }
     private OnClick listener;
