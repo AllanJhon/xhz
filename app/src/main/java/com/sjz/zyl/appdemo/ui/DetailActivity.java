@@ -184,7 +184,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
             URL url = null;
             try {
                 url = new URL(source);
-                drawable = Drawable.createFromStream(url.openStream(), "img");
+                drawable = Drawable.createFromStream(url.openStream(), "png");
             } catch (Exception e) {
                 return null;
             }
