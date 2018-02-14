@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
+import com.sjz.zyl.appdemo.domain.News;
 import com.sjz.zyl.appdemo.ui.amap.RouteActivity;
 import com.sjz.zyl.appdemo.utils.Parser;
 import com.sjz.zyl.appdemo.widget.ImageViewPlus;
@@ -26,6 +27,8 @@ import com.sjz.zyl.appdemo.widget.ImageViewPlus;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.KJDB;
+import org.kymjs.kjframe.database.DbModel;
+import org.kymjs.kjframe.database.utils.TableInfo;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
 
@@ -157,7 +160,20 @@ public class DetailActivity extends KJActivity implements OnClickListener{
         super.initData();
         kjdb = KJDB.create();
         if(article==null) {
-            article = kjdb.findById(id, Article.class);
+            TableInfo table = TableInfo.get(Article.class);
+            article=new Article();
+            DbModel dbModel=kjdb.findDbModelBySQL("select * from "+table.getTableName()+" where ArticleID= "+id);
+            article.setArticle(dbModel.getString("Article"));
+            article.setArticleCategoryID(dbModel.getInt("ArticleCategoryID"));
+            article.setLocationLatitude(dbModel.getString("LocationLatitude"));
+            article.setLocation(dbModel.getString("Location"));
+            article.setSequence(dbModel.getString("Sequence"));
+            article.setArticleLogo(dbModel.getString("ArticleLogo"));
+            article.setMobile(dbModel.getString("Mobile"));
+            article.setLocationLongitude(dbModel.getString("LocationLongitude"));
+            article.setArticleTitle(dbModel.getString("ArticleTitle"));
+            article.setArticleIcon(dbModel.getString("ArticleIcon"));
+            article.setArticleID(dbModel.getInt("ArticleID"));
         }
     }
 

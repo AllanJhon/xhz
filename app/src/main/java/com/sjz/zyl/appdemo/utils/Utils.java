@@ -53,11 +53,12 @@ public class Utils {
         List<News> newsList = new ArrayList<News>();
         List<News> newsList_return=new ArrayList<News>() ;
         newsList = kjdb.findAll(News.class);
-        if (newsList.size() >= 3){
-            newsList_return = newsList.subList(0, 3);
-        }else if(newsList.size()>0){
-            newsList_return = newsList.subList(0, newsList.size());
-        }
+        newsList_return=newsList;
+//        if (newsList.size() >= 3){
+//            newsList_return = newsList.subList(0, 3);
+//        }else if(newsList.size()>0){
+//            newsList_return = newsList.subList(0, newsList.size());
+//        }
         return newsList_return;
     }
 
