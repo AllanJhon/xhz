@@ -78,6 +78,7 @@ public class ExpandRowGridAdapter extends BaseAdapter{
         //实例化item布局上的控件
         ImageView iv= (ImageView) view.findViewById(R.id.img);
         TextView tv=(TextView)view.findViewById(R.id.text);
+        tv.setTextSize(10f);
         tv.setText(list.get(position).getArticleCategory());
         view.setBackgroundColor(view.getResources().getColor(R.color.click));
         ImageView imageView=(ImageView) view.findViewById(R.id.img);
