@@ -92,7 +92,7 @@ public class ExpandRowGridAdapter extends BaseAdapter{
             kjb.displayLoadAndErrorBitmap(imageView,
                     Parser.getUrl(list.get(position).getArticleCategoryIcon()),R.drawable.loading,R.drawable.app_logo);
         }
-        imageView.setImageResource(R.drawable.economic);
+//        imageView.setImageResource(R.drawable.economic);
         view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
