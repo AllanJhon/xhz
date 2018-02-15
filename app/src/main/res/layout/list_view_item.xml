@@ -2,36 +2,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp">
 
     <ImageView
         android:id="@+id/article_image"
         android:layout_width="fill_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="170dp"
+        android:scaleType="centerCrop" />
+
     <LinearLayout
         android:id="@+id/show_dot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="-35dp"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
         <TextView
             android:id="@+id/article_phoneTv"
             android:layout_width="220dp"
             android:layout_height="40dp"
-            android:background="@drawable/background"
-            android:drawablePadding="5dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:padding="2dp"
+            android:background="@drawable/background"
+            android:drawablePadding="5dp"
             android:gravity="center"
+            android:padding="2dp"
             android:text="测试数据"
             android:textColor="#ffffff"
             android:textSize="12sp" />
 
-    </LinearLayout>//这里显示的小圆圈之间的切换
-
+    </LinearLayout>
 
 
 </LinearLayout>

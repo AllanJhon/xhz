@@ -123,7 +123,7 @@ public class EmptyLayout extends LinearLayout implements
 
     public void setTvNoDataContent() {
         if (StringUtils.isEmpty(strNoDataContent)) {
-            tv.setText("糟糕，取不到数据勒，点击重试下吧~");
+            tv.setText("抱歉，没有找到相关的信息！");
         } else {
             tv.setText(strNoDataContent);
         }
