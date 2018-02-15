@@ -88,6 +88,12 @@
                 android:gravity="left"
                 android:text=""
                 android:textColor="#2d2b2b"></com.sjz.zyl.appdemo.utils.htmlView.HtmlTextView>
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                </WebView>
             <!--<TextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
