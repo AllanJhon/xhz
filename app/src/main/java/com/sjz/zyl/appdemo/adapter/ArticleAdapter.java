@@ -1,6 +1,7 @@
 package com.sjz.zyl.appdemo.adapter;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -37,6 +38,8 @@ public class ArticleAdapter extends KJAdapter<Article> {
 
         ImageView image = helper.getView(R.id.article_image);
         String url = Parser.getUrl(item.getArticleIcon());
+//        Drawable bodyState = image.getDrawable();
+//        if(bodyState==null)
         if (StringUtils.isEmpty(url)) {
             image.setVisibility(View.GONE);
         } else {

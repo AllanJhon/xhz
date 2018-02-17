@@ -159,24 +159,25 @@ public class DetailActivity extends KJActivity implements OnClickListener{
         }else{
             textView.setText(Html.fromHtml(article.getArticle()));
             textView.setMovementMethod(LinkMovementMethod.getInstance());//设置可点击
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    final Spanned text = Html.fromHtml(article.getArticle(), imgGetter, null);
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            textView.setText(text);
-                            NoUnderlineSpan mNoUnderlineSpan = new NoUnderlineSpan();
-                            if (textView.getText() instanceof Spannable) {
-                                Spannable s = (Spannable) textView.getText();
-                                s.setSpan(mNoUnderlineSpan, 0, s.length(), Spanned.SPAN_MARK_MARK);
+            if(article.getArticle().indexOf("<a")==0) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        final Spanned text = Html.fromHtml(article.getArticle(), imgGetter, null);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                textView.setText(text);
+                                NoUnderlineSpan mNoUnderlineSpan = new NoUnderlineSpan();
+                                if (textView.getText() instanceof Spannable) {
+                                    Spannable s = (Spannable) textView.getText();
+                                    s.setSpan(mNoUnderlineSpan, 0, s.length(), Spanned.SPAN_MARK_MARK);
+                                }
                             }
-                        }
-                    });
-                }
-            }).start();
-
+                        });
+                    }
+                }).start();
+            }
         }
         mBackwardbButton = (Button) findViewById(R.id.button_backward);
         mBackwardbButton.setOnClickListener(new OnClickListener() {
@@ -356,6 +357,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
         super.setContentView(R.layout.detail);
         setupViews();   //加载 custom_title_bar 布局 ，并获取标题及两侧按钮
     }
+
 
     class MyWebViewClient extends WebViewClient {
         //重写shouldOverrideUrlLoading方法，使点击链接后不使用其他的浏览器打开。

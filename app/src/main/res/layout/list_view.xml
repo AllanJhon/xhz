@@ -8,7 +8,7 @@
 
     <include layout="@layout/custom_title_bar" />
 
-    <com.sjz.zyl.appdemo.widget.listview.PullToRefreshList
+    <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

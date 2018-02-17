@@ -15,16 +15,22 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.sjz.zyl.appdemo.AppConfig;
 import com.sjz.zyl.appdemo.R;
+//import com.sjz.zyl.appdemo.adapter.ArticleAdapter;
 import com.sjz.zyl.appdemo.adapter.ArticleAdapter;
 import com.sjz.zyl.appdemo.domain.Article;
+import com.sjz.zyl.appdemo.utils.Parser;
 import com.sjz.zyl.appdemo.widget.EmptyLayout;
 import com.sjz.zyl.appdemo.widget.listview.FooterLoadingLayout;
 import com.sjz.zyl.appdemo.widget.listview.PullToRefreshBase;
 import com.sjz.zyl.appdemo.widget.listview.PullToRefreshList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.kymjs.kjframe.KJActivity;
 import org.kymjs.kjframe.KJDB;
+import org.kymjs.kjframe.KJHttp;
 import org.kymjs.kjframe.http.HttpCallBack;
 import org.kymjs.kjframe.ui.BindView;
 import org.kymjs.kjframe.ui.ViewInject;
@@ -42,17 +48,19 @@ import java.util.List;
 public class ArticleListActivity extends KJActivity{
 
     private int id;
+    @BindView(id = R.id.listView)
     private ListView mList;
     private List<Article> articleList;
     private ArticleAdapter adapter;
-    @BindView(id = R.id.listView)
-    private PullToRefreshList mRefreshLayout;
+//    @BindView(id = R.id.listView)
+//    private PullToRefreshList mRefreshLayout;
     @BindView(id = R.id.empty_layout)
     private EmptyLayout mEmptyLayout;
     @BindView(id=R.id.search)
     private EditText search;
     @BindView(id=R.id.button_backward)
     private Button mBackwardbButton;
+    public static String getAllDatas_path="api/v1/syncAll";
     @Override
     public void setRootView() {
         setupViews();
@@ -77,14 +85,15 @@ public class ArticleListActivity extends KJActivity{
      * 初始化ListView样式
      */
     private void listViewPreference() {
-        mList = mRefreshLayout.getRefreshView();
+//        mList = mRefreshLayout.getRefreshView();
+        mList=(ListView)findViewById(R.id.listView);
         mList.setDivider(new ColorDrawable(0x00000000));
-        mList.setOverscrollFooter(null);
-        mList.setOverscrollHeader(null);
-        mList.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
-        mRefreshLayout.setPullLoadEnabled(true);
-        ((FooterLoadingLayout) mRefreshLayout.getFooterLoadingLayout())
-                .setNoMoreDataText("已经显示全部了哦~");
+//        mList.setOverscrollFooter(null);
+//        mList.setOverscrollHeader(null);
+//        mList.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+//        mRefreshLayout.setPullLoadEnabled(true);
+//        ((FooterLoadingLayout) mRefreshLayout.getFooterLoadingLayout())
+//                .setNoMoreDataText("已经显示全部了哦~");
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -101,19 +110,19 @@ public class ArticleListActivity extends KJActivity{
             }
         });
 
-        mRefreshLayout.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onPullDownToRefresh(
-                    PullToRefreshBase<ListView> refreshView) {
-//                refresh();
-            }
-
-            @Override
-            public void onPullUpToRefresh(
-                    PullToRefreshBase<ListView> refreshView) {
+//        mRefreshLayout.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+//            @Override
+//            public void onPullDownToRefresh(
+//                    PullToRefreshBase<ListView> refreshView) {
+//                getData();
+//            }
+//
+//            @Override
+//            public void onPullUpToRefresh(
+//                    PullToRefreshBase<ListView> refreshView) {
 //                mRefreshLayout.setHasMoreData(false);
-            }
-        });
+//            }
+//        });
         mBackwardbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +145,7 @@ public class ArticleListActivity extends KJActivity{
         Drawable drawable1 = getResources().getDrawable(R.drawable.search);
         drawable1.setBounds(30, 0, 60, 60);//第一0是距左边距离，第二0是距上边距离，40分别是长宽
         search.setCompoundDrawables(drawable1, null, null, null);//只放左边
+        search.setFocusable(false);
         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -166,6 +176,20 @@ public class ArticleListActivity extends KJActivity{
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        if(mEmptyLayout.getVisibility()==View.VISIBLE){
+            mEmptyLayout.setVisibility(View.GONE);
+            mList.setVisibility(View.VISIBLE);
+            search.setText("");
+//            KJDB kjdb=KJDB.create();
+//            List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleTitle like '%"+search.getText()+"%' and  ArticleCategoryID = "+id);
+//            adapter.refresh(datas);
+        }else{
+            super.onBackPressed();
+        }
+    }
     private void refresh() {
         KJDB kjdb=KJDB.create();
        List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleCategoryID = "+id);
@@ -180,6 +204,60 @@ public class ArticleListActivity extends KJActivity{
                 mEmptyLayout.setErrorType(EmptyLayout.NODATA);
             }
         }
+    }
+
+    private void getData(){
+        KJHttp kjh=new KJHttp();
+        kjh.get(AppConfig.root_path+getAllDatas_path, new HttpCallBack() {
+            @Override
+            public void onSuccess(String t) {
+                super.onSuccess(t);
+                KJLoger.debug("文章列表：" + t);
+                JSONObject json= null;
+                try {
+                    json = new JSONObject(t);
+                    if(json.optInt("code")==200){
+                        JSONObject data=json.getJSONObject("data");
+                         Parser.getArticles(data.getString("Articles"));
+                        KJDB kjdb=KJDB.create();
+                        List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleCategoryID = "+id);
+                        if(datas.size()>0){
+                            adapter = new ArticleAdapter(mList, datas);
+                            mList.setAdapter(adapter);
+                            mEmptyLayout.dismiss();
+                        }else{
+                            if (adapter != null && adapter.getCount() > 0) {
+                                return;
+                            } else {
+                                mEmptyLayout.setErrorType(EmptyLayout.NODATA);
+                            }
+                        }
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                mEmptyLayout.dismiss();
+            }
+
+            @Override
+            public void onFailure(int errorNo, String strMsg) {
+                super.onFailure(errorNo, strMsg);
+                if (adapter != null && adapter.getCount() > 0) {
+                    return;
+                } else {
+                    mEmptyLayout.setErrorType(EmptyLayout.NODATA);
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+//                mRefreshLayout.onPullDownRefreshComplete();
+//                mRefreshLayout.onPullUpRefreshComplete();
+            }
+        });
     }
 
     /**
