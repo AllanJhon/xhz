@@ -17,29 +17,30 @@
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="1"
         android:gravity="center"
         android:text="主页"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="1"
         android:typeface="monospace" />
 
     <EditText
         android:id="@+id/search"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/edit_text_shape"
         android:layout_width="220dp"
         android:layout_height="match_parent"
-        android:gravity="left|center_vertical"
+        android:layout_alignParentRight="true"
         android:layout_margin="10dp"
+        android:background="@drawable/edit_text_shape"
         android:drawableLeft="@drawable/search"
         android:drawablePadding="10dp"
-        android:textColor="@color/black"
-        android:singleLine="true"
-        android:radius="100dp"
+        android:gravity="left|center_vertical"
         android:imeOptions="actionSearch"
+        android:radius="100dp"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textCursorDrawable="@drawable/color_cursor"
         android:textSize="16sp" />
 
 </LinearLayout>
