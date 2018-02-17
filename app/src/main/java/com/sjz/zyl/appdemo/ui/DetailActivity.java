@@ -1,18 +1,23 @@
 package com.sjz.zyl.appdemo.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -24,6 +29,7 @@ import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
 import com.sjz.zyl.appdemo.domain.News;
 import com.sjz.zyl.appdemo.ui.amap.RouteActivity;
+import com.sjz.zyl.appdemo.utils.NoUnderlineSpan;
 import com.sjz.zyl.appdemo.utils.Parser;
 import com.sjz.zyl.appdemo.widget.ImageViewPlus;
 
@@ -48,8 +54,8 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     @BindView(id=R.id.text_title)
     private TextView mTitleTextView;
     private Button mBackwardbButton;
-//    @BindView(id=R.id.article_content)
-//    private TextView textView;
+    @BindView(id=R.id.article_content)
+    private TextView textView;
     @BindView(id=R.id.webView)
     private WebView webView;
     @BindView(id=R.id.search)
@@ -67,7 +73,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     private ImageView image_main;
     @BindView(id=R.id.tel)
     private TextView tel_tv;
-//    @BindView(id=R.id.tel_text)
+    //    @BindView(id=R.id.tel_text)
 //    private TextView tel_text;
     private String tp_title;
     private FrameLayout mContentLayout;
@@ -121,18 +127,20 @@ public class DetailActivity extends KJActivity implements OnClickListener{
             article_title.setVisibility(View.GONE);
 
         mTitleTextView.setText(tp_title);
+        if(!article.getArticle().contains("<a")) {
+            WebSettings webSettings = webView.getSettings();
 
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setAllowFileAccess(true);
-        webSettings.setSupportMultipleWindows(true);
-        webSettings.setJavaScriptEnabled(true);
-
-        webSettings.setDomStorageEnabled(true);
-
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP)
-            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        webView.loadData(article.getArticle().replace("<img", "<img height=\"250px\"; width=\"100%\""), "text/html;charset=UTF-8",null);
+            webSettings.setJavaScriptEnabled(true);
+            webSettings.setAllowFileAccess(true);
+            webSettings.setSupportMultipleWindows(true);
+            webSettings.setDomStorageEnabled(true);
+            webSettings.setDefaultTextEncodingName("UTF-8");
+            webView.setWebViewClient(new MyWebViewClient());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+//        webView.
+            webView.loadDataWithBaseURL("", article.getArticle().replace("<img", "<img height=\"250px\"; width=\"100%\""), "text/html;charset=UTF-8", null, null);
+//        webView.loadUrl("http://zhidao.baidu.com");
 //        textView.setText(Html.fromHtml(article.getArticle()));
 //        textView.setMovementMethod(LinkMovementMethod.getInstance());//设置可点击
 //        new Thread(new Runnable() {
@@ -147,7 +155,29 @@ public class DetailActivity extends KJActivity implements OnClickListener{
 //                });
 //            }
 //        }).start();
-        //mContentLayout = (FrameLayout) findViewById(R.id.layout_content);
+            //mContentLayout = (FrameLayout) findViewById(R.id.layout_content);
+        }else{
+            textView.setText(Html.fromHtml(article.getArticle()));
+            textView.setMovementMethod(LinkMovementMethod.getInstance());//设置可点击
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    final Spanned text = Html.fromHtml(article.getArticle(), imgGetter, null);
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            textView.setText(text);
+                            NoUnderlineSpan mNoUnderlineSpan = new NoUnderlineSpan();
+                            if (textView.getText() instanceof Spannable) {
+                                Spannable s = (Spannable) textView.getText();
+                                s.setSpan(mNoUnderlineSpan, 0, s.length(), Spanned.SPAN_MARK_MARK);
+                            }
+                        }
+                    });
+                }
+            }).start();
+
+        }
         mBackwardbButton = (Button) findViewById(R.id.button_backward);
         mBackwardbButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -289,8 +319,8 @@ public class DetailActivity extends KJActivity implements OnClickListener{
 
     @Override
     public void setContentView(View view) {
-       // mContentLayout.removeAllViews();
-       // mContentLayout.addView(view);
+        // mContentLayout.removeAllViews();
+        // mContentLayout.addView(view);
         onContentChanged();
     }
 
@@ -299,7 +329,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
      */
     @Override
     public void setContentView(View view, LayoutParams params) {
-       // mContentLayout.removeAllViews();
+        // mContentLayout.removeAllViews();
         //mContentLayout.addView(view, params);
         onContentChanged();
     }
@@ -325,5 +355,15 @@ public class DetailActivity extends KJActivity implements OnClickListener{
     public void setRootView() {
         super.setContentView(R.layout.detail);
         setupViews();   //加载 custom_title_bar 布局 ，并获取标题及两侧按钮
+    }
+
+    class MyWebViewClient extends WebViewClient {
+        //重写shouldOverrideUrlLoading方法，使点击链接后不使用其他的浏览器打开。
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            //如果不需要其他对点击链接事件的处理返回true，否则返回false
+            return true;
+        }
     }
 }

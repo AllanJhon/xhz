@@ -2,6 +2,7 @@ package com.sjz.zyl.appdemo.ui;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.text.Html;
 import android.text.Spanned;
@@ -9,6 +10,8 @@ import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -43,10 +46,12 @@ public class NewsActivity extends KJActivity implements OnClickListener{
     @BindView(id=R.id.text_title)
     private TextView mTitleTextView;
     private Button mBackwardbButton;
-    @BindView(id=R.id.article_content)
-    private TextView textView;
+    //    @BindView(id=R.id.article_content)
+//    private TextView textView;
     @BindView(id=R.id.search)
     private EditText search;
+    @BindView(id=R.id.webView)
+    private WebView webView;
     private int id;
     @BindView(id=R.id.article_title)
     private TextView article_title;
@@ -84,25 +89,25 @@ public class NewsActivity extends KJActivity implements OnClickListener{
         }
 //        if(!"".equals(news.getNewsTitle())&&news.getNewsTitle()!=null)
 ////        mTitleTextView.setText(article.getArticleTitle());
-            article_title.setText(news.getNewsTitle());
+        article_title.setText(news.getNewsTitle());
 //        else
 //            article_title.setVisibility(View.GONE);
 
         mTitleTextView.setText(tp_title);
-        textView.setText(Html.fromHtml(news.getNewsContent()));
-        textView.setMovementMethod(LinkMovementMethod.getInstance());//设置可点击
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final Spanned text = Html.fromHtml(news.getNewsContent(), imgGetter, null);
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText(text);
-                    }
-                });
-            }
-        }).start();
+//        textView.setText(Html.fromHtml(news.getNewsContent()));
+//        textView.setMovementMethod(LinkMovementMethod.getInstance());//设置可点击
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                final Spanned text = Html.fromHtml(news.getNewsContent(), imgGetter, null);
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        textView.setText(text);
+//                    }
+//                });
+//            }
+//        }).start();
         //mContentLayout = (FrameLayout) findViewById(R.id.layout_content);
         mBackwardbButton = (Button) findViewById(R.id.button_backward);
         mBackwardbButton.setOnClickListener(new OnClickListener() {
@@ -111,21 +116,18 @@ public class NewsActivity extends KJActivity implements OnClickListener{
                 onBackward(v);
             }
         });
-//        location.setOnClickListener(new OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                ViewInject.toast(article.getLocationLatitude());
-//                if(!"null".equals(article.getLocationLatitude())&&!"null".equals(article.getLocationLongitude()))
-//                {
-//                    Intent intent = new Intent(NewsActivity.this, RouteActivity.class);
-//                    intent.putExtra("lat", Float.parseFloat(article.getLocationLatitude()));
-//                    intent.putExtra("lnt", Float.parseFloat(article.getLocationLongitude()));
-//                    intent.putExtra("lacation", article.getLocation());
-//                    setResult(RESULT_OK, intent);
-//                    startActivity(intent);
-//                }
-//            }
-//        });
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        webSettings.setSupportMultipleWindows(true);
+        webSettings.setJavaScriptEnabled(true);
+
+        webSettings.setDomStorageEnabled(true);
+
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP)
+            webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        webView.loadData(news.getNewsContent().replace("<img", "<img height=\"250px\"; width=\"100%\""), "text/html;charset=UTF-8",null);
+
     }
 
     @Override
