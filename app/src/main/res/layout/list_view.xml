@@ -4,18 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+
+    <include layout="@layout/custom_title_bar" />
+
     <com.sjz.zyl.appdemo.widget.listview.PullToRefreshList
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
         android:fadingEdge="none" />
-
-    <include layout="@layout/custom_title_bar" />
 
     <com.sjz.zyl.appdemo.widget.EmptyLayout
         android:id="@+id/empty_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:visibility="gone" />
 </RelativeLayout>

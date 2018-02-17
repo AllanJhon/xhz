@@ -3,6 +3,7 @@ package com.sjz.zyl.appdemo.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -132,6 +133,9 @@ public class ArticleListActivity extends KJActivity{
             mEmptyLayout.dismiss();
         }
         refresh();
+        Drawable drawable1 = getResources().getDrawable(R.drawable.search);
+        drawable1.setBounds(30, 0, 60, 60);//第一0是距左边距离，第二0是距上边距离，40分别是长宽
+        search.setCompoundDrawables(drawable1, null, null, null);//只放左边
         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

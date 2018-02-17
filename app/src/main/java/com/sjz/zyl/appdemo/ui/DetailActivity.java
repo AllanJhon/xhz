@@ -127,7 +127,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
             article_title.setVisibility(View.GONE);
 
         mTitleTextView.setText(tp_title);
-        if(!article.getArticle().contains("<a")) {
+        if(article.getArticle().contains("<img")) {
             WebSettings webSettings = webView.getSettings();
 
             webSettings.setJavaScriptEnabled(true);
@@ -139,7 +139,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 //        webView.
-            webView.loadDataWithBaseURL("", article.getArticle().replace("<img", "<img height=\"250px\"; width=\"100%\""), "text/html;charset=UTF-8", null, null);
+            webView.loadData( article.getArticle().replace("<img", "<img height=\"250px\"; width=\"100%\""), "text/html;charset=UTF-8", null);
 //        webView.loadUrl("http://zhidao.baidu.com");
 //        textView.setText(Html.fromHtml(article.getArticle()));
 //        textView.setMovementMethod(LinkMovementMethod.getInstance());//设置可点击
