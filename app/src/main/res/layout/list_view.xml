@@ -2,13 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
     android:orientation="vertical">
 
 
 
     <include layout="@layout/custom_title_bar" />
 
-    <ListView
+    <com.sjz.zyl.appdemo.widget.listview.PullToRefreshList
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

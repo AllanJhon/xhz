@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.sjz.zyl.appdemo.AppConfig;
 import com.sjz.zyl.appdemo.R;
-//import com.sjz.zyl.appdemo.adapter.ArticleAdapter;
 import com.sjz.zyl.appdemo.adapter.ArticleAdapter;
 import com.sjz.zyl.appdemo.domain.Article;
 import com.sjz.zyl.appdemo.utils.Parser;
@@ -48,12 +47,11 @@ import java.util.List;
 public class ArticleListActivity extends KJActivity{
 
     private int id;
-    @BindView(id = R.id.listView)
     private ListView mList;
     private List<Article> articleList;
     private ArticleAdapter adapter;
-//    @BindView(id = R.id.listView)
-//    private PullToRefreshList mRefreshLayout;
+    @BindView(id = R.id.listView)
+    private PullToRefreshList mRefreshLayout;
     @BindView(id = R.id.empty_layout)
     private EmptyLayout mEmptyLayout;
     @BindView(id=R.id.search)
@@ -85,15 +83,14 @@ public class ArticleListActivity extends KJActivity{
      * 初始化ListView样式
      */
     private void listViewPreference() {
-//        mList = mRefreshLayout.getRefreshView();
-        mList=(ListView)findViewById(R.id.listView);
+        mList = mRefreshLayout.getRefreshView();
         mList.setDivider(new ColorDrawable(0x00000000));
-//        mList.setOverscrollFooter(null);
-//        mList.setOverscrollHeader(null);
-//        mList.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
-//        mRefreshLayout.setPullLoadEnabled(true);
-//        ((FooterLoadingLayout) mRefreshLayout.getFooterLoadingLayout())
-//                .setNoMoreDataText("已经显示全部了哦~");
+        mList.setOverscrollFooter(null);
+        mList.setOverscrollHeader(null);
+        mList.setOverScrollMode(ListView.OVER_SCROLL_NEVER);
+        mRefreshLayout.setPullLoadEnabled(true);
+        ((FooterLoadingLayout) mRefreshLayout.getFooterLoadingLayout())
+                .setNoMoreDataText("已经显示全部了哦~");
 
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -110,19 +107,19 @@ public class ArticleListActivity extends KJActivity{
             }
         });
 
-//        mRefreshLayout.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(
-//                    PullToRefreshBase<ListView> refreshView) {
-//                getData();
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(
-//                    PullToRefreshBase<ListView> refreshView) {
-//                mRefreshLayout.setHasMoreData(false);
-//            }
-//        });
+        mRefreshLayout.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onPullDownToRefresh(
+                    PullToRefreshBase<ListView> refreshView) {
+                getData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(
+                    PullToRefreshBase<ListView> refreshView) {
+                mRefreshLayout.setHasMoreData(false);
+            }
+        });
         mBackwardbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,7 +142,9 @@ public class ArticleListActivity extends KJActivity{
         Drawable drawable1 = getResources().getDrawable(R.drawable.search);
         drawable1.setBounds(30, 0, 60, 60);//第一0是距左边距离，第二0是距上边距离，40分别是长宽
         search.setCompoundDrawables(drawable1, null, null, null);//只放左边
-        search.setFocusable(false);
+//        search.setFocusable(false);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
         search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -177,19 +176,19 @@ public class ArticleListActivity extends KJActivity{
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        if(mEmptyLayout.getVisibility()==View.VISIBLE){
-            mEmptyLayout.setVisibility(View.GONE);
-            mList.setVisibility(View.VISIBLE);
-            search.setText("");
-//            KJDB kjdb=KJDB.create();
-//            List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleTitle like '%"+search.getText()+"%' and  ArticleCategoryID = "+id);
-//            adapter.refresh(datas);
-        }else{
-            super.onBackPressed();
-        }
-    }
+//    @Override
+//    public void onBackPressed() {
+//        if(mEmptyLayout.getVisibility()==View.VISIBLE){
+//            mEmptyLayout.setVisibility(View.GONE);
+//            mList.setVisibility(View.VISIBLE);
+//            search.setText("");
+////            KJDB kjdb=KJDB.create();
+////            List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleTitle like '%"+search.getText()+"%' and  ArticleCategoryID = "+id);
+////            adapter.refresh(datas);
+//        }else{
+//            super.onBackPressed();
+//        }
+//    }
     private void refresh() {
         KJDB kjdb=KJDB.create();
        List<Article> datas= kjdb.findAllByWhere(Article.class,"ArticleCategoryID = "+id);
@@ -254,8 +253,8 @@ public class ArticleListActivity extends KJActivity{
             @Override
             public void onFinish() {
                 super.onFinish();
-//                mRefreshLayout.onPullDownRefreshComplete();
-//                mRefreshLayout.onPullUpRefreshComplete();
+                mRefreshLayout.onPullDownRefreshComplete();
+                mRefreshLayout.onPullUpRefreshComplete();
             }
         });
     }
