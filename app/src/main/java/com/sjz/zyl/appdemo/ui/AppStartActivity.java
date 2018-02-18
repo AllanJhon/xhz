@@ -59,7 +59,7 @@ public class AppStartActivity extends KJActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                startLogin();
+                //startLogin();
             }
 
             @Override
@@ -162,6 +162,7 @@ public class AppStartActivity extends KJActivity {
 
                             }
 //                           list= Parser.getCategories(json.optString("data"));
+                            startLogin();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
