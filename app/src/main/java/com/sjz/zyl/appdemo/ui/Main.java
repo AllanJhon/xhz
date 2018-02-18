@@ -116,8 +116,6 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             int weight = (int) (Main.this.getResources().getDisplayMetrics().density * 10 + 0.1f);
             LinearLayout.LayoutParams vlp = new LinearLayout.LayoutParams(height, weight);
             View v = inflater.inflate(R.layout.circle_view, null);
-//            v.setPadding(10, 10, 10, 10);
-
             vlp.setMargins(10, 10, 10, 10);
             if (i == 0) {
                 v.setBackgroundResource(R.drawable.dot_focus);
@@ -249,12 +247,12 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
                     Message msgs = new Message();
                     msgs.what = NEXT;
                     //发送延迟消息，做到轮播的效果
-                    mHandler.sendMessageDelayed(msgs, 0);
+                    mHandler.sendMessageDelayed(msgs, 1000);
                 } else if (end - start > 120) {
                     Message msgs = new Message();
                     msgs.what = PREVIOUS;
                     //发送延迟消息，做到轮播的效果
-                    mHandler.sendMessageDelayed(msgs, 0);
+                    mHandler.sendMessageDelayed(msgs, 1000);
                 }
                 break;
         }
@@ -267,20 +265,27 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
     private void showNext() {
         flipper.setInAnimation(this, R.anim.right_in);
         flipper.setOutAnimation(this, R.anim.right_out);
-        flipper.showNext();
-        int current = flipper.getDisplayedChild();
-        if (current == 0) {
-            if (NUM>0) {
-                mDotList.get(NUM - 1).setBackgroundResource(R.drawable.dot_normal);
-            }else{
-                mDotList.get(0).setBackgroundResource(R.drawable.dot_normal);
+        if(NUM!=0) {
+            int current = flipper.getDisplayedChild();
+//        if (current == 0) {
+//            if (NUM>0) {
+//                mDotList.get(NUM - 1).setBackgroundResource(R.drawable.dot_normal);
+//            }else{
+//                mDotList.get(0).setBackgroundResource(R.drawable.dot_normal);
+//            }
+//
+//        } else {
+//            mDotList.get(current - 1).setBackgroundResource(R.drawable.dot_normal);
+//        }
+            if (current == NUM - 1) {
+                mDotList.get(0).setBackgroundResource(R.drawable.dot_focus);
+            } else {
+                mDotList.get(current + 1).setBackgroundResource(R.drawable.dot_focus);
             }
-
-        } else {
-            mDotList.get(current - 1).setBackgroundResource(R.drawable.dot_normal);
+            mDotList.get(current).setBackgroundResource(R.drawable.dot_normal);
+            news_title.setText(newses.get(current).getNewsTitle());
+            flipper.showNext();
         }
-        mDotList.get(current).setBackgroundResource(R.drawable.dot_focus);
-        news_title.setText(newses.get(current).getNewsTitle());
     }
 
     /**
@@ -289,15 +294,27 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
     private void showPre() {
         flipper.setInAnimation(this, R.anim.left_in);
         flipper.setOutAnimation(this, R.anim.left_out);
-        flipper.showPrevious();
-        int current = flipper.getDisplayedChild();
-        if (current == NUM - 1) {
-            mDotList.get(0).setBackgroundResource(R.drawable.dot_normal);
-        } else {
-            mDotList.get(current + 1).setBackgroundResource(R.drawable.dot_normal);
+        if(NUM!=0) {
+            int current = flipper.getDisplayedChild();
+//        if (current == NUM - 1) {
+//            mDotList.get(0).setBackgroundResource(R.drawable.dot_normal);
+//        } else {
+//            mDotList.get(current + 1).setBackgroundResource(R.drawable.dot_normal);
+//        }
+            if (current == 0) {
+                if (NUM > 0) {
+                    mDotList.get(NUM - 1).setBackgroundResource(R.drawable.dot_focus);
+                } else {
+                    mDotList.get(0).setBackgroundResource(R.drawable.dot_focus);
+                }
+
+            } else {
+                mDotList.get(current - 1).setBackgroundResource(R.drawable.dot_focus);
+            }
+            mDotList.get(current).setBackgroundResource(R.drawable.dot_normal);
+            news_title.setText(newses.get(current).getNewsTitle());
+            flipper.showPrevious();
         }
-        mDotList.get(current).setBackgroundResource(R.drawable.dot_focus);
-        news_title.setText(newses.get(current).getNewsTitle());
     }
 
     private void initView() {
