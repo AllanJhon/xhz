@@ -99,7 +99,7 @@ public class Parser {
                 data.setTypeIconURL(obj.optString("TypeIconURL","测试"));
                 data.setArticleTypeIcon(obj.optString("ArticleTypeIcon","测试"));
                 if(jkdb.findAllByWhere(ArticleType.class,"ArticleTypeID = "+obj.optString("ArticleTypeID")).size()!=0)
-                    jkdb.update(data);
+                    jkdb.update(data,"ArticleTypeID = "+obj.optString("ArticleTypeID"));
                 else
                     jkdb.save(data);
                 datas.add(data);
@@ -139,7 +139,7 @@ public class Parser {
                 data.setArticleCategoryID(obj.optInt("ArticleCategoryID"));
 
                 if(jkdb.findAllByWhere(Article.class,"ArticleID = "+obj.optString("ArticleID")).size()!=0)
-                    jkdb.update(data);
+                    jkdb.update(data,"ArticleID = "+obj.optString("ArticleID"));
                 else
                     jkdb.save(data);
                 datas.add(data);
@@ -173,7 +173,7 @@ public class Parser {
                 data.setAuthor(obj.optString("Author"));
                 data.setReleaseDate(obj.optString("ReleaseDate"));
                 if(jkdb.findAllByWhere(News.class,"NewsID = "+obj.optString("NewsID")).size()!=0)
-                    jkdb.update(data);
+                    jkdb.update(data,"NewsID = "+obj.optString("NewsID"));
                 else
                     jkdb.save(data);
                 datas.add(data);
@@ -203,7 +203,7 @@ public class Parser {
                 data.setDocumentTitle(obj.optString("DocumentTitle"));
                 data.setDocumentURL(obj.optString("DocumentURL"));
                 if(jkdb.findAllByWhere(Documents.class,"DocumentID = "+obj.optString("DocumentID")).size()!=0)
-                    jkdb.update(data);
+                    jkdb.update(data,"DocumentID = "+obj.optString("DocumentID"));
                 else
                     jkdb.save(data);
                 datas.add(data);

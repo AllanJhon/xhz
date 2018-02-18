@@ -270,7 +270,11 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         flipper.showNext();
         int current = flipper.getDisplayedChild();
         if (current == 0) {
-            mDotList.get(NUM - 1).setBackgroundResource(R.drawable.dot_normal);
+            if (NUM>0) {
+                mDotList.get(NUM - 1).setBackgroundResource(R.drawable.dot_normal);
+            }else{
+                mDotList.get(0).setBackgroundResource(R.drawable.dot_normal);
+            }
 
         } else {
             mDotList.get(current - 1).setBackgroundResource(R.drawable.dot_normal);
