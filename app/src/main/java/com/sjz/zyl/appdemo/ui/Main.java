@@ -181,7 +181,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         }
 
         initView();
-        sendMes();
+
 
     }
 
@@ -247,12 +247,12 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             case MotionEvent.ACTION_UP:
                 if (end - start < -120) {
                     Message msgs = new Message();
-                    msgs.what = PREVIOUS;
+                    msgs.what = NEXT;
                     //发送延迟消息，做到轮播的效果
                     mHandler.sendMessageDelayed(msgs, 0);
                 } else if (end - start > 120) {
                     Message msgs = new Message();
-                    msgs.what = NEXT;
+                    msgs.what = PREVIOUS;
                     //发送延迟消息，做到轮播的效果
                     mHandler.sendMessageDelayed(msgs, 0);
                 }
@@ -346,6 +346,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             data=Utils.getCategories(this);
             newses=Utils.getNews(this);
             NUM = newses.size();
+            sendMes();
         }
     }
 
