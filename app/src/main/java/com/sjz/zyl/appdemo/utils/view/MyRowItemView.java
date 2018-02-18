@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.sjz.zyl.appdemo.AppConfig;
 import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
+import com.sjz.zyl.appdemo.utils.Parser;
 
 import org.kymjs.kjframe.KJBitmap;
 import org.kymjs.kjframe.bitmap.BitmapConfig;
@@ -77,11 +78,15 @@ public class MyRowItemView extends LinearLayout{
         KJBitmap kjb = new KJBitmap(new BitmapConfig());
 
         if(kjb.getMemoryCache(url)!=null){
-            kjb.displayCacheOrDefult(imageView,
-                    url,R.drawable.finance);
+//            kjb.displayCacheOrDefult(imageView,
+//                    url,R.drawable.finance);
+            kjb.display(imageView,
+                   url,100,70,R.drawable.loading);
         }else {
-            kjb.displayLoadAndErrorBitmap(imageView,
-                    url,R.drawable.loading,R.drawable.app_logo);
+//            kjb.displayLoadAndErrorBitmap(imageView,
+//                    url,R.drawable.loading,R.drawable.app_logo);
+            kjb.display(imageView,
+                    url,100,70,R.drawable.loading);
         }
     }
 

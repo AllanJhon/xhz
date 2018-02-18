@@ -87,11 +87,15 @@ public class ExpandRowGridAdapter extends BaseAdapter{
 //        kjb.displayLoadAndErrorBitmap(imageView,
 //                Parser.getUrl(item.getArticleCategoryIcon()),R.drawable.loading,R.drawable.app_logo);
         if(kjb.getMemoryCache(Parser.getUrl(list.get(position).getArticleCategoryIcon()))!=null){
-            kjb.displayCacheOrDefult(imageView,
-                    Parser.getUrl(list.get(position).getArticleCategoryIcon()),R.drawable.finance);
+            kjb.display(imageView,
+                    Parser.getUrl(list.get(position).getArticleCategoryIcon()),100,70,R.drawable.loading);
+//            kjb.displayCacheOrDefult(imageView,
+//                    Parser.getUrl(list.get(position).getArticleCategoryIcon()),R.drawable.finance);
         }else {
-            kjb.displayLoadAndErrorBitmap(imageView,
-                    Parser.getUrl(list.get(position).getArticleCategoryIcon()),R.drawable.loading,R.drawable.app_logo);
+            kjb.display(imageView,
+                    Parser.getUrl(list.get(position).getArticleCategoryIcon()),100,70,R.drawable.loading);
+//            kjb.displayLoadAndErrorBitmap(imageView,
+//                    Parser.getUrl(list.get(position).getArticleCategoryIcon()),R.drawable.loading,R.drawable.app_logo);
         }
 //        imageView.setImageResource(R.drawable.economic);
         view.setOnClickListener(new OnClickListener() {
