@@ -141,7 +141,7 @@ public class AppStartActivity extends KJActivity {
         } else {
             config.cacheTime = 300;
         }
-        config.useDelayCache = true;
+//        config.useDelayCache = true;
        KJHttp kjh = new KJHttp(config);
       String cache = kjh.getStringCache(AppConfig.root_path+getAllDatas_path);
         if (StringUtils.isEmpty(cache))

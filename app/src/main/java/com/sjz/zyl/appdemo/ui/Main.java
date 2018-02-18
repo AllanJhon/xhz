@@ -128,17 +128,51 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             ImageViewPlus imageViewPlus = getImageView(Parser.getUrl(newses.get(i).getNewsLogo()));
             imageViewPlus.setBackgroundColor(Color.TRANSPARENT);
             //新闻图片点击时间
-            imageViewPlus.setOnClickListener(new View.OnClickListener() {
+//            imageViewPlus.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int current = flipper.getDisplayedChild();
+////                Toast.makeText(getApplicationContext(),"点击了"+newses.get(current).getNewsID(),Toast.LENGTH_SHORT);
+////                    ViewInject.toast(newses.get(current).getNewsID()+"");
+//                    Intent intent = new Intent(Main.this, NewsActivity.class);
+//                    intent.putExtra("id", newses.get(current).getNewsID());
+//                    intent.putExtra("value", newses.get(current).getNewsTitle());
+//                    setResult(RESULT_OK, intent);
+//                    startActivity(intent);
+//                }
+//            });
+            imageViewPlus.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                public void onClick(View view) {
-                    int current = flipper.getDisplayedChild();
-//                Toast.makeText(getApplicationContext(),"点击了"+newses.get(current).getNewsID(),Toast.LENGTH_SHORT);
-//                    ViewInject.toast(newses.get(current).getNewsID()+"");
-                    Intent intent = new Intent(Main.this, NewsActivity.class);
-                    intent.putExtra("id", newses.get(current).getNewsID());
-                    intent.putExtra("value", newses.get(current).getNewsTitle());
-                    setResult(RESULT_OK, intent);
-                    startActivity(intent);
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    switch (motionEvent.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            start = motionEvent.getX();
+                            break;
+                        case MotionEvent.ACTION_MOVE://判断向左滑动还是向右滑动
+                            end = motionEvent.getX();
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            if (end - start < -120) {
+                                Message msgs = new Message();
+                                msgs.what = PREVIOUS;
+                                //发送延迟消息，做到轮播的效果
+                                mHandler.sendMessageDelayed(msgs, 0);
+                            } else if (end - start > 120) {
+                                Message msgs = new Message();
+                                msgs.what = NEXT;
+                                //发送延迟消息，做到轮播的效果
+                                mHandler.sendMessageDelayed(msgs, 0);
+                            }else{
+                                int current = flipper.getDisplayedChild();
+                                Intent intent = new Intent(Main.this, NewsActivity.class);
+                                intent.putExtra("id", newses.get(current).getNewsID());
+                                intent.putExtra("value", newses.get(current).getNewsTitle());
+                                setResult(RESULT_OK, intent);
+                                startActivity(intent);
+                            }
+                            break;
+                    }
+                    return true;
                 }
             });
             flipper.addView(imageViewPlus);
@@ -184,7 +218,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         Message msgs = new Message();
         msgs.what = AUTO;
         //发送延迟消息，做到轮播的效果
-        mHandler.sendMessageDelayed(msgs, 5000);
+        mHandler.sendMessageDelayed(msgs, 3000);
     }
 
     private ImageViewPlus getImageView(String resId) {
@@ -200,8 +234,9 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
         return image;
     }
 
-    public boolean onTouchEvent(MotionEvent event) {
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 start = event.getX();
@@ -211,9 +246,15 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
                 break;
             case MotionEvent.ACTION_UP:
                 if (end - start < -120) {
-                    showPre();
+                    Message msgs = new Message();
+                    msgs.what = PREVIOUS;
+                    //发送延迟消息，做到轮播的效果
+                    mHandler.sendMessageDelayed(msgs, 0);
                 } else if (end - start > 120) {
-                    showNext();
+                    Message msgs = new Message();
+                    msgs.what = NEXT;
+                    //发送延迟消息，做到轮播的效果
+                    mHandler.sendMessageDelayed(msgs, 0);
                 }
                 break;
         }

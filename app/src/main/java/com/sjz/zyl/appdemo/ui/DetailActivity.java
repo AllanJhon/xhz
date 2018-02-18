@@ -80,7 +80,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
 
     private void setupViews() {
         Intent intent = getIntent();
-        article=(Article) intent.getSerializableExtra("article");
+//        article=(Article) intent.getSerializableExtra("article");
         id = intent.getIntExtra("id",0); // 没有输入值默认为0
         tp_title=intent.getStringExtra("value");
         handler=new Handler();
@@ -129,7 +129,6 @@ public class DetailActivity extends KJActivity implements OnClickListener{
         mTitleTextView.setText(tp_title);
         if(article.getArticle().contains("<img")) {
             WebSettings webSettings = webView.getSettings();
-
             webSettings.setJavaScriptEnabled(true);
             webSettings.setAllowFileAccess(true);
             webSettings.setSupportMultipleWindows(true);
@@ -194,7 +193,7 @@ public class DetailActivity extends KJActivity implements OnClickListener{
                 {
                     Intent intent = new Intent(DetailActivity.this, RouteActivity.class);
                     intent.putExtra("lat", Float.parseFloat(article.getLocationLatitude()));
-                    intent.putExtra("lnt", Float.parseFloat(article.getLocationLongitude()));
+                    intent.putExtra("lng", Float.parseFloat(article.getLocationLongitude()));
                     intent.putExtra("lacation", article.getLocation());
                     setResult(RESULT_OK, intent);
                     startActivity(intent);
