@@ -18,6 +18,7 @@ import com.sjz.zyl.appdemo.R;
 import com.sjz.zyl.appdemo.domain.Article;
 import com.sjz.zyl.appdemo.domain.ArticleType;
 import com.sjz.zyl.appdemo.domain.Categories;
+import com.sjz.zyl.appdemo.service.CommonService;
 import com.sjz.zyl.appdemo.utils.Parser;
 
 import org.json.JSONException;
@@ -77,7 +78,7 @@ public class AppStartActivity extends KJActivity {
     private void configPush() {}
 
     private void jumpTo() {
-//        startService(new Intent(aty, CommonService.class));
+        startService(new Intent(aty, CommonService.class));
         configPush();
         boolean isFirst = PreferenceHelper.readBoolean(aty, TAG, "first_open",
                 true);

@@ -16,6 +16,7 @@
 package com.sjz.zyl.appdemo.utils;
 
 
+import android.content.Context;
 import android.util.Log;
 
 import com.sjz.zyl.appdemo.domain.Article;
@@ -29,6 +30,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.kymjs.kjframe.KJDB;
 import org.kymjs.kjframe.database.utils.TableInfo;
+import org.kymjs.kjframe.utils.KJLoger;
+import org.kymjs.kjframe.utils.SystemTool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -232,6 +235,27 @@ public class Parser {
             Log.e("xhz", "getUrl()解析异常");
         }
 
+        return url;
+    }
+
+    /**
+     * 检测更新
+     *
+     * @param json
+     */
+    public static String checkVersion(Context cxt, String json) {
+        String url = "";
+        try {
+            JSONObject obj = new JSONObject(json);
+            int serverVersion = obj.optInt("AppVersion", 0);
+            int currentVersion = SystemTool.getAppVersionCode(cxt);
+            KJLoger.debug("当前版本：" + currentVersion + "最新版本：" + serverVersion);
+            if (serverVersion > currentVersion) {
+                url = obj.optString("DownloadURL");
+            }
+        } catch (JSONException e) {
+            Log.e("xhz", "checkVersion()解析异常");
+        }
         return url;
     }
 }
