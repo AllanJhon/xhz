@@ -279,11 +279,13 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
 //        }
             if (current == NUM - 1) {
                 mDotList.get(0).setBackgroundResource(R.drawable.dot_focus);
+                news_title.setText(newses.get(0).getNewsTitle());
             } else {
                 mDotList.get(current + 1).setBackgroundResource(R.drawable.dot_focus);
+                news_title.setText(newses.get(current+1).getNewsTitle());
             }
             mDotList.get(current).setBackgroundResource(R.drawable.dot_normal);
-            news_title.setText(newses.get(current).getNewsTitle());
+
             flipper.showNext();
         }
     }
@@ -304,15 +306,18 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
             if (current == 0) {
                 if (NUM > 0) {
                     mDotList.get(NUM - 1).setBackgroundResource(R.drawable.dot_focus);
+                    news_title.setText(newses.get(NUM-1).getNewsTitle());
                 } else {
                     mDotList.get(0).setBackgroundResource(R.drawable.dot_focus);
+                    news_title.setText(newses.get(0).getNewsTitle());
                 }
 
             } else {
                 mDotList.get(current - 1).setBackgroundResource(R.drawable.dot_focus);
+                news_title.setText(newses.get(current-1).getNewsTitle());
             }
             mDotList.get(current).setBackgroundResource(R.drawable.dot_normal);
-            news_title.setText(newses.get(current).getNewsTitle());
+
             flipper.showPrevious();
         }
     }
