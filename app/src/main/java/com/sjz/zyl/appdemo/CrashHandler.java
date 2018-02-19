@@ -21,6 +21,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 
+import org.kymjs.kjframe.ui.ViewInject;
 import org.kymjs.kjframe.utils.FileUtils;
 import org.kymjs.kjframe.utils.SystemTool;
 
@@ -68,11 +69,13 @@ public class CrashHandler implements UncaughtExceptionHandler {
         // 导出异常信息到SD卡中
         try {
             saveToSDCard(ex);
+            ViewInject.longToast(ex.getMessage());
         } catch (Exception e) {
-        } finally {
-            // ex.printStackTrace();// 调试时打印日志信息
-            System.exit(0);
         }
+//        finally {
+//            // ex.printStackTrace();// 调试时打印日志信息
+//            System.exit(0);
+//        }
     }
 
     // public static void sendAppCrashReport(final Context context) {

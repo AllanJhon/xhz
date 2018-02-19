@@ -317,7 +317,7 @@ public class Main extends KJActivity implements ExpandRowGridAdapter.OnClick {
                 news_title.setText(newses.get(current-1).getNewsTitle());
             }
             mDotList.get(current).setBackgroundResource(R.drawable.dot_normal);
-
+//            news_title.setText(newses.get(current-1).getNewsTitle());
             flipper.showPrevious();
         }
     }
